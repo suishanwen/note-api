@@ -53,7 +53,7 @@ public class NoteController {
     @PostMapping("/edit")
     public Note edit(@ApiParam(value = "Note", required = true) @RequestBody Note note) {
         String ip = NoteUtil.getIpAddr(request);
-        if (ip == null || !ip.equals("97.64.39.244")) {
+        if (ip == null || (!ip.equals(note.getIp()) && !ip.equals("97.64.39.244"))) {
             throw new BusinessException("当前IP没有编辑权限！");
         }
         return noteSerivce.edit(note);
