@@ -17,8 +17,8 @@ public interface NoteMapper extends tk.mybatis.mapper.common.Mapper<Note> {
             "SELECT\n" +
             "    id,\n" +
             "    title,\n" +
-            "    post_time,\n" +
-            "    edit_time\n" +
+            "    post_time postTime,\n" +
+            "    edit_time editTime\n" +
             "FROM\n" +
             "    note\n" +
             "ORDER BY\n" +
