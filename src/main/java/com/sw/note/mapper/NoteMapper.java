@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Mapper
@@ -28,7 +27,7 @@ public interface NoteMapper extends tk.mybatis.mapper.common.Mapper<Note> {
             "    END\n" +
             "DESC\n" +
             "</script>")
-    List<Map> getAll();
+    List<Note> getAll();
 
     @Select("<script> \n" +
             "SELECT\n" +
