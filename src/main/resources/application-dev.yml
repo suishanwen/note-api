@@ -15,7 +15,7 @@ spring:
       pool-name: MyHikariCP  # 连接池名字
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+#    time-zone: GMT+8
     serialization.write-dates-as-timestamps: false
 
 mybatis:
