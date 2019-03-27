@@ -1,0 +1,33 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.3.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.sw'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+ext {
+    mysqlVersion = "8.0.15"
+    mapperVersion = "2.0.4"
+    guavaVersion = "27.1-jre"
+    fastjsonVersion = "1.2.54"
+    javaMailVersion = "1.4.7"
+    swagger2Versoin = "2.6.1"
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("tk.mybatis:mapper-spring-boot-starter:${mapperVersion}") //mybatis 通用Mapper插件
+    implementation("com.google.guava:guava:${guavaVersion}")
+    implementation("mysql:mysql-connector-java:${mysqlVersion}")
+    implementation("com.alibaba:fastjson:${fastjsonVersion}")
+    implementation("javax.mail:mail:${javaMailVersion}")
+    implementation("io.springfox:springfox-swagger2:${swagger2Versoin}")
+    implementation("io.springfox:springfox-swagger-ui:${swagger2Versoin}")
+
+}
