@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class NoteSerivce {
@@ -17,7 +18,7 @@ public class NoteSerivce {
     @Autowired
     NoteMapper noteMapper;
 
-    public List<Note> getAllPost() {
+    public List<Map> getAllPost() {
         return noteMapper.getAll();
     }
 

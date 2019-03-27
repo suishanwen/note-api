@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Api(value = "笔记", description = "笔记", tags = "1")
 @RestController
@@ -24,7 +25,7 @@ public class NoteController {
 
     @ApiOperation(value = "获取笔记列表", notes = "获取笔记列表")
     @GetMapping("/getAll")
-    public List<Note> getAll() {
+    public List<Map> getAll() {
         return noteSerivce.getAllPost();
     }
 
