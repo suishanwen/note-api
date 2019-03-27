@@ -22,7 +22,7 @@ public class NoteController {
     @Autowired
     HttpServletRequest request;
 
-//    @ApiOperation(value = "获取笔记列表", notes = "获取笔记列表")
+    @ApiOperation(value = "获取笔记列表", notes = "获取笔记列表")
     @GetMapping("/getAll")
     public List<Note> getAll() {
         return noteSerivce.getAllPost();
@@ -61,12 +61,9 @@ public class NoteController {
 
 
     @ApiOperation(value = "删除笔记", notes = "删除笔记")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", paramType = "path", value = "id", dataType = "String"),
-            @ApiImplicitParam(name = "authCodeIn", paramType = "body", value = "授权码", dataType = "String")
-    })
+    @ApiImplicitParam(name = "id", paramType = "path", value = "id", dataType = "String")
     @PostMapping("/delete/{id}")
-    public void delete(@PathVariable("id") Integer id, @RequestBody String authCodeIn) {
+    public void delete(@PathVariable("id") Integer id, @ApiParam(value = "Note", required = true) @RequestBody String authCodeIn) {
         String authCode = NoteUtil.readToString("/home/authCode");
         if (authCode != null && authCodeIn.equals(authCode.trim())) {
             noteSerivce.delete(id);
