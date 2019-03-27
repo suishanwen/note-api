@@ -24,7 +24,7 @@ public class NoteController {
     HttpServletRequest request;
 
     @ApiOperation(value = "获取笔记列表", notes = "获取笔记列表")
-    @GetMapping("/getAll")
+    @GetMapping("")
     public List<Map> getAll() {
         return noteSerivce.getAllPost();
     }
