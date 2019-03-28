@@ -37,7 +37,7 @@ public class NoteController {
     }
 
     @ApiOperation(value = "通过id查询笔记内容", notes = "通过id查询笔记内容")
-    @ApiImplicitParam(name = "id", paramType = "query", value = "id", dataType = "String")
+    @ApiImplicitParam(name = "id", paramType = "query", value = "id", required = true, dataType = "String")
     @GetMapping("/get")
     public Note get(@RequestParam("id") Integer id) {
         return noteSerivce.get(id);
@@ -62,7 +62,7 @@ public class NoteController {
 
 
     @ApiOperation(value = "删除笔记", notes = "删除笔记")
-    @ApiImplicitParam(name = "id", paramType = "path", value = "id", dataType = "String")
+    @ApiImplicitParam(name = "id", paramType = "path", value = "id", required = true, dataType = "String")
     @PostMapping("/delete/{id}")
     public void delete(@PathVariable("id") Integer id, @ApiParam(value = "Note", required = true) @RequestBody String authCodeIn) {
         String authCode = NoteUtil.readToString("/home/authCode");

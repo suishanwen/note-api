@@ -20,15 +20,6 @@ public class Note {
     public Note() {
     }
 
-    public Note(String poster, String title, String content, Date postTime, Date editTime, String ip) {
-        this.poster = poster;
-        this.title = title;
-        this.content = content;
-        this.postTime = postTime;
-        this.editTime = editTime;
-        this.ip = ip;
-    }
-
     public Integer getId() {
         return id;
     }

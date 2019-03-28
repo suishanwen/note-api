@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@Api(value = "文件", description = "文件", tags = "2")
+@Api(value = "文件", description = "文件", tags = "3")
 @RestController
 @RequestMapping(path = "/file")
 public class FileController {
