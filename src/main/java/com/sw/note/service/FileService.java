@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 @Service
@@ -42,6 +44,28 @@ public class FileService {
             IOUtils.close(os);
             IOUtils.close(ins);
         }
+    }
+
+    public BufferedImage statistic() {
+        BufferedImage bi = new BufferedImage(150, 70, BufferedImage.TYPE_INT_RGB);
+        //得到它的绘制环境(这张图片的笔)
+        Graphics2D g2 = (Graphics2D) bi.getGraphics();
+        //填充一个矩形 左上角坐标(0,0),宽70,高150;填充整张图片
+        g2.fillRect(0, 0, 150, 70);
+        //设置颜色
+        g2.setColor(Color.WHITE);
+        //填充整张图片(其实就是设置背景颜色)
+        g2.fillRect(0, 0, 150, 70);
+        g2.setColor(Color.RED);
+        //画边框
+        g2.drawRect(0, 0, 150 - 1, 70 - 1);
+        //设置字体:字体、字号、大小
+        g2.setFont(new Font("宋体", Font.PLAIN, 18));
+        //设置背景颜色
+        g2.setColor(Color.BLACK);
+        //向图片上写字符串
+        g2.drawString(String.valueOf(Math.random()), 3, 50);
+        return bi;
     }
 
 }
