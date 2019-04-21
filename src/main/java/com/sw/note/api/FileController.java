@@ -1,6 +1,7 @@
 package com.sw.note.api;
 
 import com.sw.note.service.FileService;
+import com.sw.note.util.DateUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -38,6 +39,7 @@ public class FileController {
             response.setContentType(MediaType.IMAGE_PNG_VALUE);
             response.setHeader("Cache-Control","no-cache");
             response.setHeader("Etag", UUID.randomUUID().toString());
+            response.setHeader("Date", DateUtil.getDate());
             ImageIO.write(bufferedImage,"PNG",response.getOutputStream());
         }catch (IOException e){
             e.printStackTrace();
