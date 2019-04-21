@@ -68,7 +68,7 @@ public class FileService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        BufferedImage bi = new BufferedImage(320, 230, BufferedImage.TYPE_INT_RGB);
+        BufferedImage bi = new BufferedImage(350, 230, BufferedImage.TYPE_INT_RGB);
         //得到它的绘制环境(这张图片的笔)
         Graphics2D g2 = (Graphics2D) bi.getGraphics();
         //填充一个矩形 左上角坐标(0,0),宽350,高230;填充整张图片
