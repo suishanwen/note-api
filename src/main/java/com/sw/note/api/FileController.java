@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.UUID;
 
 
 @Api(value = "文件", description = "文件", tags = "3")
@@ -30,12 +31,13 @@ public class FileController {
 
 
     @ApiOperation(value = "获取统计数", notes = "获取统计数")
-    @GetMapping(value = "stat",produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(value = "stats",produces = MediaType.IMAGE_PNG_VALUE)
     public void statistic(HttpServletResponse response) {
         BufferedImage bufferedImage =  fileService.statistic();
         try {
             response.setContentType(MediaType.IMAGE_PNG_VALUE);
             response.setHeader("Cache-Control","no-cache");
+            response.setHeader("Etag", UUID.randomUUID().toString());
             ImageIO.write(bufferedImage,"PNG",response.getOutputStream());
         }catch (IOException e){
             e.printStackTrace();
