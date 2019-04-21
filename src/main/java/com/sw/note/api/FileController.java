@@ -32,7 +32,7 @@ public class FileController {
 
 
     @ApiOperation(value = "获取统计数", notes = "获取统计数")
-    @GetMapping(value = "stats",produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(value = "statics",produces = MediaType.IMAGE_PNG_VALUE)
     public void statistic(HttpServletResponse response) {
         BufferedImage bufferedImage =  fileService.statistic();
         try {
