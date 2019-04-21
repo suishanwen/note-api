@@ -31,10 +31,10 @@ public class FileController {
 
     @ApiOperation(value = "获取统计数", notes = "获取统计数")
     @GetMapping(value = "statistic",produces = MediaType.IMAGE_PNG_VALUE)
-    @ResponseBody
     public void statistic(HttpServletResponse response) {
         BufferedImage bufferedImage =  fileService.statistic();
         try {
+            response.setContentType(MediaType.IMAGE_PNG_VALUE);
             ImageIO.write(bufferedImage,"PNG",response.getOutputStream());
         }catch (IOException e){
             e.printStackTrace();
