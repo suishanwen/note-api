@@ -71,15 +71,15 @@ public class FileService {
         BufferedImage bi = new BufferedImage(320, 230, BufferedImage.TYPE_INT_RGB);
         //得到它的绘制环境(这张图片的笔)
         Graphics2D g2 = (Graphics2D) bi.getGraphics();
-        //填充一个矩形 左上角坐标(0,0),宽320,高230;填充整张图片
-        g2.fillRect(0, 0, 320, 230);
+        //填充一个矩形 左上角坐标(0,0),宽350,高230;填充整张图片
+        g2.fillRect(0, 0, 350, 230);
         //设置颜色
         g2.setColor(Color.WHITE);
         //填充整张图片(其实就是设置背景颜色)
-        g2.fillRect(0, 0, 320, 230);
+        g2.fillRect(0, 0, 350, 230);
         g2.setColor(Color.WHITE);
         //画边框
-        g2.drawRect(0, 0, 320 - 1, 230 - 1);
+        g2.drawRect(0, 0, 350 - 1, 230 - 1);
         //设置字体:字体、字号、大小
         g2.setFont(new Font("Arial", Font.PLAIN, 20));
         //设置背景颜色
