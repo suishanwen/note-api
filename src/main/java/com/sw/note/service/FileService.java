@@ -1,6 +1,11 @@
 package com.sw.note.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.IOUtils;
+import com.sw.note.beans.Enquiry;
+import org.ini4j.Ini;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -9,6 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URI;
+import java.net.URL;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FileService {
@@ -46,25 +55,41 @@ public class FileService {
         }
     }
 
-    public BufferedImage statistic() {
-        BufferedImage bi = new BufferedImage(150, 70, BufferedImage.TYPE_INT_RGB);
+    public BufferedImage statistic(String now) {
+        Ini ini = new Ini();
+        Double today = 0D;
+        Double sum = 0D;
+        try {
+            ini.load(new URL("https://bitcoinrobot.cn/balance/ok/config.ini"));
+            String count = ini.get("okb_usdt-stat").get("count");
+            List<Double> data = JSON.parseArray(count, Double.class);
+            today = data.get(data.size() - 1);
+            sum = data.stream().mapToDouble(x -> x).sum();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        BufferedImage bi = new BufferedImage(300, 230, BufferedImage.TYPE_INT_RGB);
         //得到它的绘制环境(这张图片的笔)
         Graphics2D g2 = (Graphics2D) bi.getGraphics();
-        //填充一个矩形 左上角坐标(0,0),宽70,高150;填充整张图片
-        g2.fillRect(0, 0, 150, 70);
+        //填充一个矩形 左上角坐标(0,0),宽300,高230;填充整张图片
+        g2.fillRect(0, 0, 300, 230);
         //设置颜色
         g2.setColor(Color.WHITE);
         //填充整张图片(其实就是设置背景颜色)
-        g2.fillRect(0, 0, 150, 70);
-        g2.setColor(Color.RED);
+        g2.fillRect(0, 0, 300, 230);
+        g2.setColor(Color.WHITE);
         //画边框
-        g2.drawRect(0, 0, 150 - 1, 70 - 1);
+        g2.drawRect(0, 0, 300 - 1, 230 - 1);
         //设置字体:字体、字号、大小
-        g2.setFont(new Font("宋体", Font.PLAIN, 18));
+        g2.setFont(new Font("Arial", Font.PLAIN, 20));
         //设置背景颜色
-        g2.setColor(Color.BLACK);
+        g2.setColor(Color.RED);
         //向图片上写字符串
-        g2.drawString(String.valueOf(Math.random()), 3, 50);
+        g2.drawString("收益统计", 100, 50);
+        g2.setColor(Color.BLACK);
+        g2.drawString(String.format("时间:%s", now), 3, 100);
+        g2.drawString(String.format("今日:%.3f", today), 3, 150);
+        g2.drawString(String.format("本月:%.3f", sum), 3, 200);
         return bi;
     }
 

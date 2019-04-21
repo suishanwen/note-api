@@ -34,12 +34,13 @@ public class FileController {
     @ApiOperation(value = "获取统计数", notes = "获取统计数")
     @GetMapping(value = "statics",produces = MediaType.IMAGE_PNG_VALUE)
     public void statistic(HttpServletResponse response) {
-        BufferedImage bufferedImage =  fileService.statistic();
+        String now = DateUtil.getDate();
+        BufferedImage bufferedImage =  fileService.statistic(now);
         try {
             response.setContentType(MediaType.IMAGE_PNG_VALUE);
             response.setHeader("Cache-Control","no-cache");
             response.setHeader("Etag", UUID.randomUUID().toString());
-            response.setHeader("Date", DateUtil.getDate());
+            response.setHeader("Date", now);
             ImageIO.write(bufferedImage,"PNG",response.getOutputStream());
         }catch (IOException e){
             e.printStackTrace();

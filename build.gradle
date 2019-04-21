@@ -29,5 +29,5 @@ dependencies {
     implementation("javax.mail:mail:${javaMailVersion}")
     implementation("io.springfox:springfox-swagger2:${swagger2Versoin}")
     implementation("io.springfox:springfox-swagger-ui:${swagger2Versoin}")
-
+    implementation('org.ini4j:ini4j:0.5.4')
 }
