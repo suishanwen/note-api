@@ -57,14 +57,21 @@ public class FileService {
 
     public BufferedImage statistic(String now) {
         Ini ini = new Ini();
+        int day = Integer.parseInt(now.substring(now.indexOf(", ") + 2, now.indexOf(", ") + 4).trim());
         Double today = 0D;
         Double sum = 0D;
         try {
             ini.load(new URL("https://bitcoinrobot.cn/balance/ok/config.ini"));
-            String count = ini.get("okb_usdt-stat").get("count");
-            List<Double> data = JSON.parseArray(count, Double.class);
-            today = data.get(data.size() - 1);
-            sum = data.stream().mapToDouble(x -> x).sum();
+            String symbols = ini.get("trade").get("symbol");
+            List<String> symbolList = JSON.parseArray(symbols, String.class);
+            for (String symbol : symbolList) {
+                String count = ini.get(symbol + "-stat").get("count");
+                List<Double> data = JSON.parseArray(count, Double.class);
+                if (data.size() == day) {
+                    today += data.get(data.size() - 1);
+                }
+                sum += data.stream().mapToDouble(x -> x).sum();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
