@@ -14,7 +14,7 @@ public class Comment {
     private String ip;
 
     @Transient
-    private boolean operable;
+    private int operable;
 
     public Comment() {
     }
