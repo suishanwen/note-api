@@ -66,4 +66,12 @@ public class Comment {
     public void setIp(String ip) {
         this.ip = ip;
     }
+
+    public int getOperable() {
+        return operable;
+    }
+
+    public void setOperable(int operable) {
+        this.operable = operable;
+    }
 }
