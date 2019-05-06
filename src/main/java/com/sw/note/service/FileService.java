@@ -1,10 +1,7 @@
 package com.sw.note.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.IOUtils;
-import com.sw.note.beans.Enquiry;
 import org.ini4j.Ini;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URI;
 import java.net.URL;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FileService {
@@ -26,11 +21,10 @@ public class FileService {
 
     private static final String path0 = "/etc/nginx/html/file/upload/";
     private static final String path1 = "/etc/nginx/html/file/";
-    private static final String home = "/home/";
 
     public String upload(MultipartFile file, int type) {
         String fileName = file.getOriginalFilename();
-        String uploadPath = fileName.contains("sw-") ? home : type == 0 ? path0 : path1;
+        String uploadPath = type == 0 ? path0 : path1;
         InputStream ins = null;
         OutputStream os = null;
         try {
@@ -43,12 +37,8 @@ public class FileService {
             while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
                 os.write(buffer, 0, bytesRead);
             }
-
-            String url = "http://bitcoinrobot.cn/file/upload/" + fileName;
-            if (type == 1) {
-                url = "http://bitcoinrobot.cn/file/" + fileName;
-            }
-            return "{url:'" + url + "', error:'0',message:''}";
+            String url = uploadPath.replace("/etc/nginx/html/file/", "http://bitcoinrobot.cn/file/") + fileName;
+            return "{url:'" + url + "',width:'800', error:'0',message:''}";
         } catch (IOException e) {
             e.printStackTrace();
             return String.format("{url:'', error:'1',message: %s}", e.getMessage());
