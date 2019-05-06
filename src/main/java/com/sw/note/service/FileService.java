@@ -45,6 +45,9 @@ public class FileService {
             }
 
             String url = "http://bitcoinrobot.cn/file/upload/" + fileName;
+            if (type == 1) {
+                url = "http://bitcoinrobot.cn/file/" + fileName;
+            }
             return "{url:'" + url + "', error:'0',message:''}";
         } catch (IOException e) {
             e.printStackTrace();

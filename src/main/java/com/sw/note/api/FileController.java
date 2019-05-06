@@ -26,8 +26,8 @@ public class FileController {
     @ApiOperation(value = "上传文件", notes = "上传文件")
     @ApiImplicitParam(name = "type", paramType = "query", value = "类型", dataType = "int")
     @PostMapping(value = "upload", headers = "content-type=multipart/form-data")
-    public void upload(@RequestParam(value = "type", required = false, defaultValue = "0") int type, @ApiParam(value = "文件", required = true) @RequestBody MultipartFile file) {
-        fileService.upload(file, type);
+    public String upload(@RequestParam(value = "type", required = false, defaultValue = "0") int type, @ApiParam(value = "文件", required = true) @RequestBody MultipartFile file) {
+        return fileService.upload(file, type);
     }
 
 
