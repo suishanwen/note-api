@@ -37,8 +37,8 @@ public class FileService {
             while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
                 os.write(buffer, 0, bytesRead);
             }
-            String url = uploadPath.replace("/etc/nginx/html/file/", "http://bitcoinrobot.cn/file/") + fileName;
-            return "{url:'" + url + "',width:'800', error:'0',message:''}";
+            String url = uploadPath.replace("/etc/nginx/html/file/", "https://bitcoinrobot.cn/file/") + fileName;
+            return "{url:'" + url + "',width:800, error:'0',message:''}";
         } catch (IOException e) {
             e.printStackTrace();
             return String.format("{url:'', error:'1',message: %s}", e.getMessage());
