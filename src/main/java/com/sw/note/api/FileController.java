@@ -26,23 +26,23 @@ public class FileController {
     @ApiOperation(value = "上传文件", notes = "上传文件")
     @ApiImplicitParam(name = "type", paramType = "query", value = "类型", dataType = "int")
     @PostMapping(value = "upload", headers = "content-type=multipart/form-data")
-    public void upload(@RequestParam(value = "type",required = false) int type, @ApiParam(value = "文件", required = true) @RequestBody MultipartFile file) {
+    public void upload(@RequestParam(value = "type", required = false, defaultValue = "0") int type, @ApiParam(value = "文件", required = true) @RequestBody MultipartFile file) {
         fileService.upload(file, type);
     }
 
 
     @ApiOperation(value = "获取统计数", notes = "获取统计数")
-    @GetMapping(value = "statics",produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(value = "statics", produces = MediaType.IMAGE_PNG_VALUE)
     public void statistic(HttpServletResponse response) {
         String now = DateUtil.getDate();
-        BufferedImage bufferedImage =  fileService.statistic(now);
+        BufferedImage bufferedImage = fileService.statistic(now);
         try {
             response.setContentType(MediaType.IMAGE_PNG_VALUE);
-            response.setHeader("Cache-Control","no-cache");
+            response.setHeader("Cache-Control", "no-cache");
             response.setHeader("Etag", UUID.randomUUID().toString());
             response.setHeader("Date", now);
-            ImageIO.write(bufferedImage,"PNG",response.getOutputStream());
-        }catch (IOException e){
+            ImageIO.write(bufferedImage, "PNG", response.getOutputStream());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
