@@ -17,7 +17,10 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
     serialization.write-dates-as-timestamps: false
-
+  servlet:
+    multipart:
+      maxFileSize: -1
+      maxRequestSize: -1
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.sw.note.model # 扫描实例类所在包
