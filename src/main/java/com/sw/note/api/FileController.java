@@ -46,4 +46,10 @@ public class FileController {
             e.printStackTrace();
         }
     }
+
+    @ApiOperation(value = "保存trumpTwitter到Pdf", notes = "保存trumpTwitter到Pdf")
+    @PostMapping(value = "trumpTwitter")
+    public void trumpTwitter() {
+        fileService.trumpTwitter();
+    }
 }

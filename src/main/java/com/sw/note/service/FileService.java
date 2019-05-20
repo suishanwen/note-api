@@ -93,5 +93,29 @@ public class FileService {
         return bi;
     }
 
+    public void trumpTwitter() {
+        String url = "https://twitter.com/realdonaldtrump";
+        String path = "/etc/nginx/html/file/trumpTwitter.pdf";
+        String strCmd = String.format("wkhtmltopdf %s %s", url, path);
+        logger.info("java strCmd:" + strCmd);
+        BufferedInputStream bis = null;
+        BufferedReader br = null;
+        try {
+            Process process = Runtime.getRuntime().exec(strCmd);
+            bis = new BufferedInputStream(
+                    process.getInputStream());
+            br = new BufferedReader(new InputStreamReader(bis));
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+            process.waitFor();
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.close(bis);
+            IOUtils.close(br);
+        }
+    }
 }
 
