@@ -15,6 +15,7 @@ ext {
     fastjsonVersion = "1.2.54"
     javaMailVersion = "1.4.7"
     swagger2Versoin = "2.6.1"
+    ini4jVersoin = "0.5.4"
 }
 repositories {
     mavenCentral()
@@ -22,12 +23,14 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("tk.mybatis:mapper-spring-boot-starter:${mapperVersion}") //mybatis 通用Mapper插件
+    implementation("org.springframework.boot:spring-boot-starter-amqp")
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
+    implementation("tk.mybatis:mapper-spring-boot-starter:${mapperVersion}")
     implementation("com.google.guava:guava:${guavaVersion}")
     implementation("mysql:mysql-connector-java:${mysqlVersion}")
     implementation("com.alibaba:fastjson:${fastjsonVersion}")
     implementation("javax.mail:mail:${javaMailVersion}")
     implementation("io.springfox:springfox-swagger2:${swagger2Versoin}")
     implementation("io.springfox:springfox-swagger-ui:${swagger2Versoin}")
-    implementation('org.ini4j:ini4j:0.5.4')
+    implementation("org.ini4j:ini4j:${ini4jVersoin}")
 }
