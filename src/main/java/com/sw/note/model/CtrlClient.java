@@ -10,9 +10,7 @@ public class CtrlClient {
     private Integer endNum;
     private String workerId;
     private Integer tail;
-    private String arrDrop;
     private Integer autoVote;
-    private String taskInfos;
     private String user;
     private Integer sort;
 
@@ -67,14 +65,6 @@ public class CtrlClient {
         this.tail = tail;
     }
 
-    public String getArrDrop() {
-        return arrDrop;
-    }
-
-    public void setArrDrop(String arrDrop) {
-        this.arrDrop = arrDrop;
-    }
-
     public Integer getAutoVote() {
         return autoVote;
     }
@@ -83,13 +73,6 @@ public class CtrlClient {
         this.autoVote = autoVote;
     }
 
-    public String getTaskInfos() {
-        return taskInfos;
-    }
-
-    public void setTaskInfos(String taskInfos) {
-        this.taskInfos = taskInfos;
-    }
 
     public String getUser() {
         return user;
