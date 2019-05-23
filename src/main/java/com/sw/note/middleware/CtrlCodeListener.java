@@ -1,4 +1,4 @@
-package com.sw.note.api;
+package com.sw.note.middleware;
 
 import com.alibaba.fastjson.JSON;
 import com.rabbitmq.client.Channel;

@@ -41,4 +41,11 @@ public class VoteService {
         }
     }
 
+    public void report(CtrlClient ctrlClient) {
+        int count = voteMapper.updateByPrimaryKeySelective(ctrlClient);
+        if (count == 0) {
+            throw new BusinessException("上传失败!");
+        }
+    }
+
 }

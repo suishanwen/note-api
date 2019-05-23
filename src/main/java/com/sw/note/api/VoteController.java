@@ -40,4 +40,10 @@ public class VoteController {
     public void add(@RequestBody CtrlClient ctrlClient) {
         voteService.add(ctrlClient);
     }
+
+    @ApiOperation(value = "上传", notes = "上传")
+    @PostMapping(value = "report")
+    public void report(@RequestBody CtrlClient ctrlClient) {
+        voteService.report(ctrlClient);
+    }
 }

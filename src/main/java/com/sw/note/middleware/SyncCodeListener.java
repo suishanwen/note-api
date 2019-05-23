@@ -1,9 +1,6 @@
-package com.sw.note.api;
+package com.sw.note.middleware;
 
-import com.alibaba.fastjson.JSON;
 import com.rabbitmq.client.Channel;
-import com.sw.note.beans.BusinessException;
-import com.sw.note.beans.CtrlCode;
 import com.sw.note.service.VoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
