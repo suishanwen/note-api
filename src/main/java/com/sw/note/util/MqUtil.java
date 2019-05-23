@@ -18,10 +18,18 @@ public class MqUtil {
 
     private static Logger logger = LoggerFactory.getLogger(MqUtil.class);
 
+    public static String getQueue(int type) {
+        if (type == TYPE_CLIENT) {
+            return "ctrl_code";
+        } else {
+            return "sync_code";
+        }
+    }
+
 
     public static void consume(Channel channel, Message message, String data, int type) {
         try {
-            logger.info("<=============监听到ctrl_code队列消息============>" + data);
+            logger.info("<=============监听到" + getQueue(type) + "队列消息============>" + data);
             CtrlCode ctrlCode = JSON.parseObject(data, CtrlCode.class);
             String identity = ctrlCode.getIdentity();
             if (type == TYPE_MOBILE) {
@@ -44,6 +52,7 @@ public class MqUtil {
                     e1.printStackTrace();
                 }
             } else {
+                logger.error("消息处理失败:" + data + ",返回队列:" + e.getMessage());
                 try {
                     //消息再次返回队列
                     channel.basicReject(message.getMessageProperties().getDeliveryTag(), true);
