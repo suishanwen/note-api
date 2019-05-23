@@ -52,7 +52,7 @@ public class MqUtil {
                     e1.printStackTrace();
                 }
             } else {
-                logger.error("消息处理失败:" + data + ",返回队列:" + e.getMessage());
+                logger.error("消息处理失败:" + e.getMessage() + ",返回队列:" + data);
                 try {
                     //消息再次返回队列
                     channel.basicReject(message.getMessageProperties().getDeliveryTag(), true);
