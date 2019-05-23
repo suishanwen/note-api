@@ -1,8 +1,6 @@
 package com.sw.note.service;
 
-import com.alibaba.fastjson.JSON;
 import com.sw.note.beans.BusinessException;
-import com.sw.note.beans.CtrlCode;
 import com.sw.note.beans.VoteSystem;
 import com.sw.note.mapper.VoteMapper;
 import com.sw.note.model.CtrlClient;
@@ -19,10 +17,6 @@ public class VoteService {
     public VoteService(VoteMapper voteMapper, VoteSystem voteSystem) {
         this.voteMapper = voteMapper;
         this.voteSystem = voteSystem;
-    }
-
-    public void syncCtrlCode(String data) {
-        CtrlCode ctrlCode = JSON.parseObject(data, CtrlCode.class);
     }
 
 
