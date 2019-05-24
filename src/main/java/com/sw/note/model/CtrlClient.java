@@ -13,6 +13,7 @@ public class CtrlClient {
     private Integer autoVote;
     private String user;
     private Integer sort;
+    private Integer state;
 
     public CtrlClient() {
     }
@@ -88,5 +89,13 @@ public class CtrlClient {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

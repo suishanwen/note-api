@@ -18,6 +18,7 @@ public interface VoteMapper extends tk.mybatis.mapper.common.Mapper<CtrlClient> 
             "    ctrl_client\n" +
             "WHERE\n" +
             "   user = #{user}\n" +
+            "and state=1\n" +
             "ORDER BY sort\n" +
             "asc\n" +
             "</script>")
