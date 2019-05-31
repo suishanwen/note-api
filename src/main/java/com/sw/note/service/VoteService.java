@@ -46,8 +46,9 @@ public class VoteService {
             if (socket != null) {
                 try {
                     socket.sendMessage("REFRESH_STATE");
-//                    socket.sendMessage("REFRESH_PROTECT");
-                } catch (IOException e) {
+                    Thread.sleep(50);
+                    socket.sendMessage("REFRESH_PROTECT");
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
