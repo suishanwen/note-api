@@ -3,9 +3,11 @@ package com.sw.note.service;
 import com.sw.note.beans.BusinessException;
 import com.sw.note.beans.VoteSystem;
 import com.sw.note.mapper.VoteMapper;
+import com.sw.note.middleware.CtrlDeliverSocket;
 import com.sw.note.model.CtrlClient;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -39,6 +41,15 @@ public class VoteService {
         int count = voteMapper.updateByPrimaryKeySelective(ctrlClient);
         if (count == 0) {
             throw new BusinessException("上传失败!");
+        } else {
+            CtrlDeliverSocket socket = CtrlDeliverSocket.wsClientMap.get(ctrlClient.getIdentity() + "_mobi");
+            if (socket != null) {
+                try {
+                    socket.sendMessage("REFRESH_STATE");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
