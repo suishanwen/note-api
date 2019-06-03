@@ -15,6 +15,7 @@ public class MqUtil {
 
     public static final int TYPE_CLIENT = 1;
     public static final int TYPE_MOBILE = 2;
+    public static final int TYPE_MOBILE2 = 3;
 
     private static Logger logger = LoggerFactory.getLogger(MqUtil.class);
 
@@ -34,6 +35,8 @@ public class MqUtil {
             String identity = ctrlCode.getIdentity();
             if (type == TYPE_MOBILE) {
                 identity += "_mobi";
+            } else if (type == TYPE_MOBILE2) {
+                identity += "_mobi2";
             }
             if (CtrlDeliverSocket.wsClientMap.containsKey(identity)) {
                 CtrlDeliverSocket ctrlDeliverSocket = CtrlDeliverSocket.wsClientMap.get(identity);
