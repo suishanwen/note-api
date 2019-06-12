@@ -34,5 +34,4 @@ dependencies {
     implementation("io.springfox:springfox-swagger2:${swagger2Versoin}")
     implementation("io.springfox:springfox-swagger-ui:${swagger2Versoin}")
     implementation("org.ini4j:ini4j:${ini4jVersoin}")
-    implementation("com.baidu.aip:java-sdk:${baiduApiVersoin}")
 }
