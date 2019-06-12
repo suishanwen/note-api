@@ -23,7 +23,6 @@ import java.util.HashMap;
 @RestController
 @RequestMapping(path = "/file")
 public class FileController {
-    //设置APPID/AK/SK
     private static final String APP_ID = "16491720";
     private static final String API_KEY = "NDxSBdoXvWBVGS0u0BfKYmNB";
     private static final String SECRET_KEY = "osdLxGFfNkZ443hzRFMnBxIhUMVh6f2u";
@@ -64,14 +63,14 @@ public class FileController {
 
     @ApiOperation(value = "识别图片中的文字", notes = "识别图片中的文字")
     @PostMapping(value = "imgocr", headers = "content-type=multipart/form-data")
-    public JSONObject orc(@ApiParam(value = "文件", required = true) @RequestBody MultipartFile file) throws IOException {
+    public String orc(@ApiParam(value = "文件", required = true) @RequestBody MultipartFile file) throws IOException {
         // 初始化一个AipImageClassify
         AipOcr client = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
         // 可选：设置网络连接参数
         client.setConnectionTimeoutInMillis(2000);
         client.setSocketTimeoutInMillis(60000);
         // 调用接口
-        return client.basicGeneral(file.getBytes(), new HashMap<String, String>());
-
+        JSONObject res = client.basicGeneral(file.getBytes(), new HashMap<String, String>());
+        return res.toString(2);
     }
 }
