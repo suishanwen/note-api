@@ -1,5 +1,6 @@
 package com.sw.note.api;
 
+import com.sw.note.middleware.CtrlDeliverSocket;
 import com.sw.note.model.CtrlClient;
 import com.sw.note.service.VoteService;
 import io.swagger.annotations.Api;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Api(value = "投票", description = "投票", tags = "4")
 @RestController
@@ -45,5 +47,11 @@ public class VoteController {
     @PostMapping(value = "report")
     public void report(@RequestBody CtrlClient ctrlClient) {
         voteService.report(ctrlClient);
+    }
+
+    @ApiOperation(value = "获取在线机器", notes = "获取在线机器")
+    @PostMapping(value = "online")
+    public ConcurrentHashMap<String, CtrlDeliverSocket> online() {
+        return CtrlDeliverSocket.wsClientMap;
     }
 }
