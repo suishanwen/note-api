@@ -21,14 +21,14 @@ public class EmailController {
             @ApiImplicitParam(name = "content", paramType = "query", value = "content", required = true, dataType = "String")
     })
     @GetMapping("/send")
-    public boolean send(@RequestParam("receiver") String receiver, @RequestParam("subject") String subject, @RequestParam("content") String content) {
+    public String send(@RequestParam("receiver") String receiver, @RequestParam("subject") String subject, @RequestParam("content") String content) {
         MailUtils cn = new MailUtils();
         cn.setAddress("controlservice@sina.com", receiver, subject);
         try {
             cn.send("smtp.sina.com", "controlservice@sina.com", "a123456", content);
-            return true;
+            return "1";
         } catch (Exception e) {
-            return false;
+            return "0";
         }
     }
 }
