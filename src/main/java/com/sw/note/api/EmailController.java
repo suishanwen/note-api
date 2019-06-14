@@ -17,12 +17,18 @@ public class EmailController {
     @ApiOperation(value = "发送", notes = "发送")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "receiver", paramType = "query", value = "receiver", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "receiver", paramType = "query", value = "receiver", required = true, dataType = "String")
+            @ApiImplicitParam(name = "subject", paramType = "query", value = "subject", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "content", paramType = "query", value = "content", required = true, dataType = "String")
     })
     @GetMapping("/send")
-    public void send(@RequestParam("receiver") String receiver, @RequestParam("subject") String subject, @RequestParam("content") String content) {
+    public boolean send(@RequestParam("receiver") String receiver, @RequestParam("subject") String subject, @RequestParam("content") String content) {
         MailUtils cn = new MailUtils();
         cn.setAddress("controlservice@sina.com", receiver, subject);
-        cn.send("smtp.sina.com", "controlservice@sina.com", "a123456", content);
+        try {
+            cn.send("smtp.sina.com", "controlservice@sina.com", "a123456", content);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
