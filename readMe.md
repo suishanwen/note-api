@@ -11,4 +11,4 @@ rabbitMq + websocket:
 
    controller: https://github.com/suishanwen/controller.CS
     
-   handler: https://github.com/suishanwen/robot-vote.CS
+   handler: https://github.com/suishanwen/robot-vote
