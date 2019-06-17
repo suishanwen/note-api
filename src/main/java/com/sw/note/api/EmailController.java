@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tk.mybatis.mapper.util.StringUtil;
 
 @Api(value = "邮件", description = "邮件", tags = "6")
 @RestController
@@ -22,6 +23,9 @@ public class EmailController {
     })
     @GetMapping("/send")
     public String send(@RequestParam("receiver") String receiver, @RequestParam("subject") String subject, @RequestParam("content") String content) {
+        if (StringUtil.isEmpty(receiver)) {
+            return "0";
+        }
         MailUtils cn = new MailUtils();
         cn.setAddress("controlservice@sina.com", receiver, subject);
         try {
