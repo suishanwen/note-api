@@ -54,7 +54,7 @@ public class FileService {
         Double today = 0D;
         Double sum = 0D;
         try {
-            ini.load(new URL("https://bitcoinrobot.cn/balance/ok/config.ini"));
+            ini.load(new URL("http://35.194.236.247/balance/ok/config.ini"));
             String symbols = ini.get("trade").get("symbol");
             List<String> symbolList = JSON.parseArray(symbols, String.class);
             for (String symbol : symbolList) {
@@ -118,4 +118,3 @@ public class FileService {
         }
     }
 }
-
