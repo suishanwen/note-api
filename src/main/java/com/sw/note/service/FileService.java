@@ -85,11 +85,11 @@ public class FileService {
         //设置背景颜色
         g2.setColor(Color.RED);
         //向图片上写字符串
-        g2.drawString("Reward Statistic($)", 100, 50);
+        g2.drawString("BitcoinRobot", 100, 50);
         g2.setColor(Color.BLACK);
         g2.drawString(String.format("Date:%s", now), 3, 100);
-        g2.drawString(String.format("Today:%.3f", today), 3, 150);
-        g2.drawString(String.format("Month:%.3f", sum), 3, 200);
+        g2.drawString(String.format("Today:%.3f$", today), 3, 150);
+        g2.drawString(String.format("Month:%.3f$", sum), 3, 200);
         return bi;
     }
 
