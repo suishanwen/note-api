@@ -15,7 +15,6 @@ import java.io.*;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class FileService {
@@ -72,22 +71,12 @@ public class FileService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String today = "0";
-        String month = "0";
-        Optional<String> optional = todayMap.keySet().stream().reduce((k1, k2) ->
+        String today = todayMap.keySet().stream().reduce((k1, k2) ->
                 String.format("%.3f%s", todayMap.get(k1), k1) + " " + String.format("%.3f%s", todayMap.get(k2), k2)
-        );
-        if (optional.isPresent()) {
-            today = optional.get();
-        }
-        ;
-        Optional<String> optional2 = monthMap.keySet().stream().reduce((k1, k2) ->
+        ).orElse("0");
+        String month = monthMap.keySet().stream().reduce((k1, k2) ->
                 String.format("%.3f%s", monthMap.get(k1), k1) + " " + String.format("%.3f%s", monthMap.get(k2), k2)
-        );
-        if (optional2.isPresent()) {
-            month = optional2.get();
-        }
-        ;
+        ).orElse("0");
         BufferedImage bi = new BufferedImage(350, 230, BufferedImage.TYPE_INT_RGB);
         //得到它的绘制环境(这张图片的笔)
         Graphics2D g2 = (Graphics2D) bi.getGraphics();
