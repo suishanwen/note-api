@@ -2,6 +2,7 @@ package com.sw.note.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.util.IOUtils;
+import com.google.common.collect.Maps;
 import org.ini4j.Ini;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,10 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static com.sun.tools.doclint.Entity.sum;
 
 @Service
 public class FileService {
@@ -51,23 +56,40 @@ public class FileService {
     public BufferedImage statistic(String now) {
         Ini ini = new Ini();
         int day = Integer.parseInt(now.substring(now.indexOf(", ") + 2, now.indexOf(", ") + 4).trim());
-        Double today = 0D;
-        Double sum = 0D;
+        Map<String, Double> todayMap = Maps.newHashMap();
+        Map<String, Double> monthMap = Maps.newHashMap();
         try {
             ini.load(new URL("https://bitcoinrobot.site/balance/ok/config.ini"));
             String symbols = ini.get("trade").get("symbol");
             List<String> symbolList = JSON.parseArray(symbols, String.class);
             for (String symbol : symbolList) {
+                String target = symbol.split("_")[1];
                 String count = ini.get(symbol + "-stat").get("count");
                 List<Double> data = JSON.parseArray(count, Double.class);
                 if (data.size() == day) {
-                    today += data.get(data.size() - 1);
+                    todayMap.put(target, todayMap.getOrDefault(target, 0D) + data.get(data.size() - 1));
                 }
-                sum += data.stream().mapToDouble(x -> x).sum();
+                monthMap.put(target, monthMap.getOrDefault(target, 0D) + data.stream().mapToDouble(x -> x).sum());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        String today = "0";
+        String month = "0";
+        Optional<String> optional = todayMap.keySet().stream().reduce((k1, k2) ->
+                String.format("%.3f%s", todayMap.get(k1), k1) + " " + String.format("%.3f%s", todayMap.get(k2), k2)
+        );
+        if (optional.isPresent()) {
+            today = optional.get();
+        }
+        ;
+        Optional<String> optional2 = monthMap.keySet().stream().reduce((k1, k2) ->
+                String.format("%.3f%s", monthMap.get(k1), k1) + " " + String.format("%.3f%s", monthMap.get(k2), k2)
+        );
+        if (optional2.isPresent()) {
+            month = optional2.get();
+        }
+        ;
         BufferedImage bi = new BufferedImage(350, 230, BufferedImage.TYPE_INT_RGB);
         //得到它的绘制环境(这张图片的笔)
         Graphics2D g2 = (Graphics2D) bi.getGraphics();
@@ -85,11 +107,11 @@ public class FileService {
         //设置背景颜色
         g2.setColor(Color.RED);
         //向图片上写字符串
-        g2.drawString("BitcoinRobot", 100, 50);
+        g2.drawString("BitcoinRobot Profits", 100, 50);
         g2.setColor(Color.BLACK);
         g2.drawString(String.format("Date:%s", now), 3, 100);
-        g2.drawString(String.format("Today:%.3f$", today), 3, 150);
-        g2.drawString(String.format("Month:%.3f$", sum), 3, 200);
+        g2.drawString(String.format("Today:%s", today), 3, 150);
+        g2.drawString(String.format("Month:%s", month), 3, 200);
         return bi;
     }
 
