@@ -72,10 +72,10 @@ public class FileService {
             e.printStackTrace();
         }
         String today = todayMap.keySet().stream().reduce((k1, k2) ->
-                String.format("%.3f%s", todayMap.get(k1), k1) + " " + String.format("%.3f%s", todayMap.get(k2), k2)
+                String.format("%.2f%s", todayMap.get(k1), k1) + " " + String.format("%.3f%s", todayMap.get(k2), k2)
         ).orElse("0");
         String month = monthMap.keySet().stream().reduce((k1, k2) ->
-                String.format("%.3f%s", monthMap.get(k1), k1) + " " + String.format("%.3f%s", monthMap.get(k2), k2)
+                String.format("%.2f%s", monthMap.get(k1), k1) + " " + String.format("%.3f%s", monthMap.get(k2), k2)
         ).orElse("0");
         BufferedImage bi = new BufferedImage(350, 230, BufferedImage.TYPE_INT_RGB);
         //得到它的绘制环境(这张图片的笔)
