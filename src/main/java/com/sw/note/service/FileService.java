@@ -3,6 +3,7 @@ package com.sw.note.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.util.IOUtils;
 import com.google.common.collect.Maps;
+import com.sw.note.util.IniUtil;
 import org.ini4j.Ini;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,12 +72,8 @@ public class FileService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String today = todayMap.keySet().stream().reduce((k1, k2) ->
-                String.format("%.2f%s", todayMap.get(k1), k1) + " " + String.format("%.2f%s", todayMap.get(k2), k2)
-        ).orElse("0");
-        String month = monthMap.keySet().stream().reduce((k1, k2) ->
-                String.format("%.2f%s", monthMap.get(k1), k1) + " " + String.format("%.2f%s", monthMap.get(k2), k2)
-        ).orElse("0");
+        String today = IniUtil.calc(todayMap);
+        String month = IniUtil.calc(monthMap);
         BufferedImage bi = new BufferedImage(350, 230, BufferedImage.TYPE_INT_RGB);
         //得到它的绘制环境(这张图片的笔)
         Graphics2D g2 = (Graphics2D) bi.getGraphics();
