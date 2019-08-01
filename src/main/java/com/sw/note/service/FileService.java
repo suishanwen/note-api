@@ -57,7 +57,7 @@ public class FileService {
         Map<String, Double> todayMap = Maps.newHashMap();
         Map<String, Double> monthMap = Maps.newHashMap();
         try {
-            ini.load(new URL("https://bitcoinrobot.site/balance/ok/config.ini"));
+            ini.load(new URL("https://bitcoinrobot.site/balance/huobi/config.ini"));
             String symbols = ini.get("trade").get("symbol");
             List<String> symbolList = JSON.parseArray(symbols, String.class);
             for (String symbol : symbolList) {
