@@ -13,6 +13,7 @@ public class ClientDirect {
     private String projectName;
     private String success;
     private Date reportTime;
+    private Date updateTime;
     private String direct;
 
     public ClientDirect() {
@@ -86,5 +87,13 @@ public class ClientDirect {
 
     public void setDirect(String direct) {
         this.direct = direct;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
