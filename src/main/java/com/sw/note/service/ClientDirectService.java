@@ -5,6 +5,7 @@ import com.sw.note.model.ClientDirect;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +28,7 @@ public class ClientDirectService {
     }
 
     public String direct(ClientDirect clientDirect) {
+        clientDirect.setReportTime(new Date());
         clientDirectMapper.updateByPrimaryKeySelective(clientDirect);
         return clientDirectMapper.selectDirectById(clientDirect.getId());
     }
