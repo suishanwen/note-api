@@ -44,8 +44,8 @@ public class ClientDirectController {
             @ApiImplicitParam(name = "id", paramType = "query", required = true, dataType = "String"),
             @ApiImplicitParam(name = "direct", paramType = "query", required = true, dataType = "String"),
     })
-    public void confirm(String id, String direct) {
-        clientDirectService.confirm(id, direct);
+    public int confirm(String id, String direct) {
+        return clientDirectService.confirm(id, direct);
     }
 
     @ApiOperation(value = "通过用户Id查看列表", notes = "通过用户Id查看列表")

@@ -33,8 +33,9 @@ public class ClientDirectService {
         return clientDirectMapper.selectDirectById(clientDirect.getId());
     }
 
-    public void confirm(String id, String direct) {
+    public int confirm(String id, String direct) {
         clientDirectMapper.confirmDirect(id, direct);
+        return 1;
     }
 
     public void deleteClient(String userId, int sortNo) {
