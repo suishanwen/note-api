@@ -46,7 +46,7 @@ public class ClientDirectService {
         return clientDirectMapper.selectByUserId(userId);
     }
 
-    public void updateDirect(String id, String direct) {
-        clientDirectMapper.updateDirect(id, direct);
+    public void updateDirect(String ids, String direct) {
+        clientDirectMapper.updateDirect(ids, direct);
     }
 }
