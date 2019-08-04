@@ -48,6 +48,9 @@ public class ClientDirectService {
     }
 
     public void updateDirect(String ids, String direct) {
-        clientDirectMapper.updateDirect(ids, direct);
+        String [] idArray = ids.split(",");
+        for(String id:idArray){
+            clientDirectMapper.updateDirect(id, direct);
+        }
     }
 }
