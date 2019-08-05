@@ -59,7 +59,7 @@ public class ClientDirectService {
 
     public BufferedImage activeClient(String now) {
         int activeClient = clientDirectMapper.selectActive();
-        int width = 270;
+        int width = 300;
         int height = 80;
         BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         //得到它的绘制环境(这张图片的笔)
@@ -78,7 +78,7 @@ public class ClientDirectService {
         //设置背景颜色
         g2.setColor(Color.red);
         //向图片上写字符串
-        g2.drawString(String.format("%s", now), 3, 30);
+        g2.drawString(String.format("%s", now), 15, 30);
         g2.setColor(Color.red);
         g2.drawString("Active Clients Within 15m : " + activeClient, 0, 60);
         return bi;
