@@ -78,5 +78,13 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
             "AND sort_no = #{sortNo}\n" +
             "</script>")
     void deleteByUser(@Param("userId") String userId, @Param("sortNo") int sortNo);
+
+    @Select("SELECT\n" +
+            "\tcount( id ) \n" +
+            "FROM\n" +
+            "\tclient_direct \n" +
+            "WHERE\n" +
+            "\treport_time >= CURRENT_TIMESTAMP - INTERVAL 15 MINUTE;")
+    int selectActive();
 }
 

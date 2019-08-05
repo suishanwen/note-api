@@ -2,13 +2,20 @@ package com.sw.note.api;
 
 import com.sw.note.model.ClientDirect;
 import com.sw.note.service.ClientDirectService;
+import com.sw.note.util.DateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Api(value = "指令", description = "指令", tags = "7")
 @RestController
@@ -73,5 +80,21 @@ public class ClientDirectController {
     })
     public void selectByUserId(String ids, String direct) {
         clientDirectService.updateDirect(ids, direct);
+    }
+
+    @ApiOperation(value = "获取活跃客户端数", notes = "获取活跃客户端数")
+    @GetMapping(value = "active", produces = MediaType.IMAGE_PNG_VALUE)
+    public void activeClient(HttpServletResponse response) {
+        String now = DateUtil.getDate();
+        BufferedImage bufferedImage = clientDirectService.activeClient(now);
+        try {
+            response.setContentType(MediaType.IMAGE_PNG_VALUE);
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Etag", UUID.randomUUID().toString());
+            response.setHeader("Date", now);
+            ImageIO.write(bufferedImage, "PNG", response.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
