@@ -74,11 +74,8 @@ public class ClientDirectController {
 
     @ApiOperation(value = "指令下发", notes = "指令下发")
     @PostMapping(value = "send")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", paramType = "query", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "direct", paramType = "query", required = true, dataType = "String"),
-    })
-    public void selectByUserId(String ids, String direct) {
+    @ApiImplicitParam(name = "ids", paramType = "query", required = true, dataType = "String")
+    public void selectByUserId(String ids, @RequestBody String direct) {
         clientDirectService.updateDirect(ids, direct);
     }
 
