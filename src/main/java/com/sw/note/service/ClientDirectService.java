@@ -51,7 +51,12 @@ public class ClientDirectService {
 
 
     public List<ClientDirect> selectByUserId(String userId) {
-        return clientDirectMapper.selectByUserId(userId);
+        String superUser = "root";
+        if (superUser.equals(userId)) {
+            return clientDirectMapper.selectAllCient();
+        } else {
+            return clientDirectMapper.selectByUserId(userId);
+        }
     }
 
     public void updateDirect(String ids, String direct) {
