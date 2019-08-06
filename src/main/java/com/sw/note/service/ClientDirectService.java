@@ -1,6 +1,8 @@
 package com.sw.note.service;
 
+import com.sw.note.mapper.BugReportMapper;
 import com.sw.note.mapper.ClientDirectMapper;
+import com.sw.note.model.BugReport;
 import com.sw.note.model.ClientDirect;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,10 +17,13 @@ import java.util.UUID;
 @Service
 public class ClientDirectService {
     private ClientDirectMapper clientDirectMapper;
+    private BugReportMapper bugReportMapper;
 
-    public ClientDirectService(ClientDirectMapper clientDirectMapper) {
+    public ClientDirectService(ClientDirectMapper clientDirectMapper, BugReportMapper bugReportMapper) {
         this.clientDirectMapper = clientDirectMapper;
+        this.bugReportMapper = bugReportMapper;
     }
+
 
     public String load(String userId, int sortNo) {
         String id = clientDirectMapper.selectIdByUser(userId, sortNo);
@@ -84,5 +89,8 @@ public class ClientDirectService {
         return bi;
     }
 
+    public void bugReport(String id, String msg) {
+        bugReportMapper.insert(new BugReport(id, msg));
+    }
 
 }

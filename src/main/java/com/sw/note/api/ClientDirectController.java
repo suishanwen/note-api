@@ -97,4 +97,14 @@ public class ClientDirectController {
             e.printStackTrace();
         }
     }
+
+    @ApiOperation(value = "bugReport", notes = "bugReport")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", paramType = "query", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "msg", paramType = "query", required = true, dataType = "String"),
+    })
+    @GetMapping(value = "bug")
+    public void bugReport(String id, String msg) {
+        clientDirectService.bugReport(id, msg);
+    }
 }
