@@ -5,6 +5,7 @@ import com.sw.note.mapper.ClientDirectMapper;
 import com.sw.note.model.BugReport;
 import com.sw.note.model.ClientDirect;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.awt.*;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 
 @Service
+@Transactional
 public class ClientDirectService {
     private ClientDirectMapper clientDirectMapper;
     private BugReportMapper bugReportMapper;
@@ -59,6 +61,7 @@ public class ClientDirectService {
         }
     }
 
+    @Transactional
     public void updateDirect(String ids, String direct) {
         String[] idArray = ids.split(",");
         for (String id : idArray) {
