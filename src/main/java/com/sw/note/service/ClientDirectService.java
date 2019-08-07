@@ -60,10 +60,6 @@ public class ClientDirectService {
     }
 
     public void updateDirect(String ids, String direct) {
-        // TODO FIX TEMP
-        if (direct.contains("ids=")) {
-            direct = direct.replace("ids=" + ids + "&", "");
-        }
         String[] idArray = ids.split(",");
         for (String id : idArray) {
             clientDirectMapper.updateDirect(id, direct);
