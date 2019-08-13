@@ -15,6 +15,7 @@ public class ClientDirect {
     private Date reportTime;
     private Date updateTime;
     private String direct;
+    private String version;
 
     public ClientDirect() {
     }
@@ -95,5 +96,13 @@ public class ClientDirect {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }
