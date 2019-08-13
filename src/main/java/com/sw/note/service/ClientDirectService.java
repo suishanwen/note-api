@@ -37,7 +37,7 @@ public class ClientDirectService {
     }
 
     public String direct(ClientDirect clientDirect) {
-        clientDirect.setReportTime(new Date());
+        //clientDirect.setReportTime(new Date());
         clientDirectMapper.updateByPrimaryKeySelective(clientDirect);
         return clientDirectMapper.selectDirectById(clientDirect.getId());
     }
