@@ -40,7 +40,7 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
     @Update("<script> \n" +
             "UPDATE \n" +
             "    client_direct\n" +
-            "SET  version=''\n" +
+            "SET  version= #{version}\n" +
             "WHERE \n" +
             "    id = #{id}\n" +
             "</script>")
