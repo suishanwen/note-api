@@ -34,7 +34,7 @@ public class ClientDirectController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", paramType = "query", required = true, dataType = "String"),
             @ApiImplicitParam(name = "sortNo", paramType = "query", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "version", paramType = "query", required = false, dataType = "int")
+            @ApiImplicitParam(name = "version", paramType = "query", required = false, dataType = "String")
     })
     public String load(String userId, int sortNo, String version) {
         return clientDirectService.load(userId, sortNo, version);
