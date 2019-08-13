@@ -36,7 +36,7 @@ public class ClientDirectController {
             @ApiImplicitParam(name = "sortNo", paramType = "query", required = true, dataType = "int"),
             @ApiImplicitParam(name = "version", paramType = "query", required = false, dataType = "String")
     })
-    public String load(String userId, int sortNo, String version) {
+    public String load(@RequestParam("userId") String userId, @RequestParam("sortNo") int sortNo, @RequestParam("version") String version) {
         return clientDirectService.load(userId, sortNo, version);
     }
 
@@ -52,14 +52,14 @@ public class ClientDirectController {
             @ApiImplicitParam(name = "id", paramType = "query", required = true, dataType = "String"),
             @ApiImplicitParam(name = "direct", paramType = "query", required = true, dataType = "String"),
     })
-    public int confirm(String id, String direct) {
+    public int confirm(@RequestParam("id") String id, @RequestParam("direct") String direct) {
         return clientDirectService.confirm(id, direct);
     }
 
     @ApiOperation(value = "通过用户Id查看列表", notes = "通过用户Id查看列表")
     @GetMapping(value = "selectByUserId")
     @ApiImplicitParam(name = "userId", paramType = "query", required = true, dataType = "String")
-    public List<ClientDirect> selectByUserId(String userId) {
+    public List<ClientDirect> selectByUserId(@RequestParam("userId") String userId) {
         return clientDirectService.selectByUserId(userId);
     }
 
@@ -69,14 +69,14 @@ public class ClientDirectController {
             @ApiImplicitParam(name = "userId", paramType = "query", required = true, dataType = "String"),
             @ApiImplicitParam(name = "sortNo", paramType = "query", required = true, dataType = "int"),
     })
-    public void deleteClient(String userId, int sortNo) {
+    public void deleteClient(@RequestParam("userId") String userId, @RequestParam("sortNo") int sortNo) {
         clientDirectService.deleteClient(userId, sortNo);
     }
 
     @ApiOperation(value = "指令下发", notes = "指令下发")
     @PostMapping(value = "send")
     @ApiImplicitParam(name = "ids", paramType = "query", required = true, dataType = "String")
-    public void selectByUserId(String ids, @RequestBody String direct) {
+    public void selectByUserId(@RequestParam("ids") String ids, @RequestBody String direct) {
         clientDirectService.updateDirect(ids, direct);
     }
 
@@ -102,7 +102,7 @@ public class ClientDirectController {
             @ApiImplicitParam(name = "msg", paramType = "query", required = true, dataType = "String"),
     })
     @GetMapping(value = "bug")
-    public void bugReport(String id, String msg) {
+    public void bugReport(@RequestParam("id") String id, @RequestParam("msg") String msg) {
         clientDirectService.bugReport(id, msg);
     }
 }
