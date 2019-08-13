@@ -27,12 +27,13 @@ public class ClientDirectService {
     }
 
 
-    public String load(String userId, int sortNo) {
+    public String load(String userId, int sortNo, String version) {
         String id = clientDirectMapper.selectIdByUser(userId, sortNo);
         if (StringUtils.isEmpty(id)) {
             id = UUID.randomUUID().toString().split("-")[0];
             clientDirectMapper.insertClient(id, userId, sortNo);
         }
+        clientDirectMapper.setVersion(id, version);
         return id;
     }
 
@@ -43,6 +44,7 @@ public class ClientDirectService {
     }
 
     public int confirm(String id, String direct) {
+        direct = direct.trim();
         clientDirectMapper.confirmDirect(id, direct);
         return 1;
     }
@@ -63,6 +65,7 @@ public class ClientDirectService {
 
     @Transactional
     public void updateDirect(String ids, String direct) {
+        direct = direct.trim();
         String[] idArray = ids.split(",");
         for (String id : idArray) {
             clientDirectMapper.updateDirect(id, direct);

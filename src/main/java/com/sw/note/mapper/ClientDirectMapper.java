@@ -36,6 +36,16 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
             "</script>")
     void insertClient(@Param("id") String id, @Param("userId") String userId, @Param("sortNo") int sortNo);
 
+
+    @Update("<script> \n" +
+            "UPDATE \n" +
+            "    client_direct\n" +
+            "SET  version=''\n" +
+            "WHERE \n" +
+            "    id = #{id}\n" +
+            "</script>")
+    void setVersion(@Param("id") String id, @Param("version") String version);
+
     @Update("<script> \n" +
             "UPDATE \n" +
             "    client_direct\n" +

@@ -34,9 +34,10 @@ public class ClientDirectController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", paramType = "query", required = true, dataType = "String"),
             @ApiImplicitParam(name = "sortNo", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "version", paramType = "query", required = false, dataType = "int")
     })
-    public String load(String userId, int sortNo) {
-        return clientDirectService.load(userId, sortNo);
+    public String load(String userId, int sortNo, String version) {
+        return clientDirectService.load(userId, sortNo, version);
     }
 
     @ApiOperation(value = "上报并获取指令", notes = "上报并获取指令")
