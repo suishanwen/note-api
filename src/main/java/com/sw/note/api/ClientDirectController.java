@@ -1,5 +1,6 @@
 package com.sw.note.api;
 
+import com.sw.note.model.ClientData;
 import com.sw.note.model.ClientDirect;
 import com.sw.note.service.ClientDirectService;
 import com.sw.note.util.DateUtil;
@@ -81,6 +82,12 @@ public class ClientDirectController {
     @PostMapping(value = "upgrade")
     public void upgradeLatest() {
         clientDirectService.upgradeLatest();
+    }
+
+    @ApiOperation(value = "上传数据", notes = "上传数据")
+    @PostMapping(value = "upload")
+    public void dateUpload(@RequestBody ClientData clientData) {
+        clientDirectService.dateUpload(clientData);
     }
 
     @ApiOperation(value = "获取活跃客户端数", notes = "获取活跃客户端数")

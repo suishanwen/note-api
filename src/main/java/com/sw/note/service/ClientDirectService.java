@@ -1,9 +1,10 @@
 package com.sw.note.service;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import com.sw.note.mapper.BugReportMapper;
+import com.sw.note.mapper.ClientDataMapper;
 import com.sw.note.mapper.ClientDirectMapper;
 import com.sw.note.model.BugReport;
+import com.sw.note.model.ClientData;
 import com.sw.note.model.ClientDirect;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import org.springframework.util.StringUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,10 +24,12 @@ public class ClientDirectService {
 
     private ClientDirectMapper clientDirectMapper;
     private BugReportMapper bugReportMapper;
+    private ClientDataMapper clientDataMapper;
 
-    public ClientDirectService(ClientDirectMapper clientDirectMapper, BugReportMapper bugReportMapper) {
+    public ClientDirectService(ClientDirectMapper clientDirectMapper, BugReportMapper bugReportMapper, ClientDataMapper clientDataMapper) {
         this.clientDirectMapper = clientDirectMapper;
         this.bugReportMapper = bugReportMapper;
+        this.clientDataMapper = clientDataMapper;
     }
 
 
@@ -77,6 +79,15 @@ public class ClientDirectService {
 
     public void upgradeLatest() {
         clientDirectMapper.updateLatestVersion(clientDirectMapper.selectLatestVersion());
+    }
+
+    public int dateUpload(ClientData clientData) {
+        try {
+            clientDataMapper.insert(clientData);
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     public BufferedImage activeClient(String now) {
