@@ -5,7 +5,7 @@ import java.util.Date;
 public class ClientData {
     private String id;
     private String date;
-    private double reward;
+    private String reward;
     private String detail;
 
     public ClientData() {
@@ -27,11 +27,11 @@ public class ClientData {
         this.date = date;
     }
 
-    public double getReward() {
+    public String getReward() {
         return reward;
     }
 
-    public void setReward(double reward) {
+    public void setReward(String reward) {
         this.reward = reward;
     }
 
