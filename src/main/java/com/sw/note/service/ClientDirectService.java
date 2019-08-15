@@ -1,9 +1,11 @@
 package com.sw.note.service;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import com.sw.note.mapper.BugReportMapper;
 import com.sw.note.mapper.ClientDirectMapper;
 import com.sw.note.model.BugReport;
 import com.sw.note.model.ClientDirect;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -18,6 +20,8 @@ import java.util.UUID;
 @Service
 @Transactional
 public class ClientDirectService {
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private ClientDirectMapper clientDirectMapper;
     private BugReportMapper bugReportMapper;
 
@@ -45,6 +49,9 @@ public class ClientDirectService {
 
     public int confirm(String id, String direct) {
         direct = direct.trim();
+        if(direct.contains("CONFIG")){
+            logger.warn("confirm:"+direct);
+        }
         clientDirectMapper.confirmDirect(id, direct);
         return 1;
     }
