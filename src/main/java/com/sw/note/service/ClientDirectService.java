@@ -49,9 +49,6 @@ public class ClientDirectService {
 
     public int confirm(String id, String direct) {
         direct = direct.trim();
-        if(direct.contains("CONFIG")){
-            logger.warn("confirm:"+direct);
-        }
         clientDirectMapper.confirmDirect(id, direct);
         return 1;
     }
