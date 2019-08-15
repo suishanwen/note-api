@@ -63,7 +63,6 @@ public class ClientDirectService {
         }
     }
 
-    @Transactional
     public void updateDirect(String ids, String direct) {
         direct = direct.trim();
         String[] idArray = ids.split(",");
@@ -72,6 +71,9 @@ public class ClientDirectService {
         }
     }
 
+    public void upgradeLatest() {
+        clientDirectMapper.updateLatestVersion(clientDirectMapper.selectLatestVersion());
+    }
 
     public BufferedImage activeClient(String now) {
         int activeClient = clientDirectMapper.selectActive();

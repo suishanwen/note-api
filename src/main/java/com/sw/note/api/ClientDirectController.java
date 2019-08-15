@@ -80,6 +80,12 @@ public class ClientDirectController {
         clientDirectService.updateDirect(ids, direct);
     }
 
+    @ApiOperation(value = "更新最新", notes = "更新最新")
+    @PostMapping(value = "upgrade")
+    public void upgradeLatest() {
+        clientDirectService.upgradeLatest();
+    }
+
     @ApiOperation(value = "获取活跃客户端数", notes = "获取活跃客户端数")
     @GetMapping(value = "active", produces = MediaType.IMAGE_PNG_VALUE)
     public void activeClient(HttpServletResponse response) {
