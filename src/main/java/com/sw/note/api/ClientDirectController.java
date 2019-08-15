@@ -47,7 +47,7 @@ public class ClientDirectController {
     }
 
     @ApiOperation(value = "确认指令", notes = "确认指令")
-    @GetMapping(value = "confirm")
+    @PostMapping(value = "confirm")
     @ApiImplicitParam(name = "id", paramType = "query", required = true, dataType = "String")
     public int confirm(@RequestParam("id") String id, @RequestBody String direct) {
         return clientDirectService.confirm(id, direct);
