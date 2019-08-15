@@ -117,7 +117,7 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
             "FROM\n" +
             "\tclient_direct \n" +
             "WHERE\n" +
-            "\treport_time >= CURRENT_TIMESTAMP - INTERVAL 15 MINUTE;")
+            "\tupdate_time >= CURRENT_TIMESTAMP - INTERVAL 15 MINUTE;")
     int selectActive();
 }
 
