@@ -1,12 +1,14 @@
 package com.sw.note.model;
 
-import java.util.Date;
+import javax.persistence.Transient;
 
 public class ClientData {
     private String id;
     private String date;
     private String reward;
     private String detail;
+    @Transient
+    private String sortNo;
 
     public ClientData() {
     }

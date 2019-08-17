@@ -24,6 +24,7 @@ public interface ClientDataMapper extends tk.mybatis.mapper.common.Mapper<Client
 
     @Select("SELECT\n" +
             "\ta.sort_no,\n" +
+            "\tb.id\n" +
             "\tb.reward\n" +
             "FROM\n" +
             "\tclient_direct a\n" +
