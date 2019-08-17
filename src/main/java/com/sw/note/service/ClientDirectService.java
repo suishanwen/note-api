@@ -77,6 +77,10 @@ public class ClientDirectService {
         }
     }
 
+    public int checkVersion(){
+        return clientDirectMapper.checkVersion();
+    }
+
     public void upgradeLatest() {
         clientDirectMapper.updateLatestVersion(clientDirectMapper.selectLatestVersion());
     }
@@ -88,6 +92,14 @@ public class ClientDirectService {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    public List<ClientData> selectDataByUserId(String userId, String date) {
+        return clientDataMapper.selectDataByUserId(userId, date);
+    }
+
+    public String selectDetail(String id, String date) {
+        return clientDataMapper.selectDetail(id, date);
     }
 
     public BufferedImage activeClient(String now) {

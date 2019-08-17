@@ -78,6 +78,12 @@ public class ClientDirectController {
         clientDirectService.updateDirect(ids, direct);
     }
 
+    @ApiOperation(value = "检查版本", notes = "检查版本")
+    @GetMapping(value = "checkVersion")
+    public int checkVersion() {
+        return clientDirectService.checkVersion();
+    }
+
     @ApiOperation(value = "更新最新", notes = "更新最新")
     @PostMapping(value = "upgrade")
     public void upgradeLatest() {
@@ -88,6 +94,26 @@ public class ClientDirectController {
     @PostMapping(value = "upload")
     public int dateUpload(@RequestBody ClientData clientData) {
         return clientDirectService.dateUpload(clientData);
+    }
+
+    @ApiOperation(value = "获取用户数据日报", notes = "获取用户数据日报")
+    @PostMapping(value = "selectDataByUserId")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", paramType = "query", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "date", paramType = "query", required = true, dataType = "String"),
+    })
+    public List<ClientData> selectDataByUserId(@RequestParam("userId") String userId, @RequestParam("date") String date) {
+        return clientDirectService.selectDataByUserId(userId, date);
+    }
+
+    @ApiOperation(value = "获取用户数据日报", notes = "获取用户数据日报")
+    @PostMapping(value = "selectDetail")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", paramType = "query", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "date", paramType = "query", required = true, dataType = "String"),
+    })
+    public String selectDetail(@RequestParam("id") String id, @RequestParam("date") String date) {
+        return clientDirectService.selectDetail(id, date);
     }
 
     @ApiOperation(value = "获取活跃客户端数", notes = "获取活跃客户端数")
