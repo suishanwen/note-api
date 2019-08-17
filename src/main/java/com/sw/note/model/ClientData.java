@@ -17,6 +17,14 @@ public class ClientData {
         return id;
     }
 
+    public String getSortNo() {
+        return sortNo;
+    }
+
+    public void setSortNo(String sortNo) {
+        this.sortNo = sortNo;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
