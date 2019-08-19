@@ -1,16 +1,19 @@
 package com.sw.note.service;
 
+import com.sw.note.ip.IPSeeker;
 import com.sw.note.mapper.BugReportMapper;
 import com.sw.note.mapper.ClientDataMapper;
 import com.sw.note.mapper.ClientDirectMapper;
 import com.sw.note.model.BugReport;
 import com.sw.note.model.ClientData;
 import com.sw.note.model.ClientDirect;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.LoggerFactory;
+import com.sw.note.util.NoteUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -20,16 +23,17 @@ import java.util.UUID;
 @Service
 @Transactional
 public class ClientDirectService {
-    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+//    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private ClientDirectMapper clientDirectMapper;
     private BugReportMapper bugReportMapper;
     private ClientDataMapper clientDataMapper;
-
-    public ClientDirectService(ClientDirectMapper clientDirectMapper, BugReportMapper bugReportMapper, ClientDataMapper clientDataMapper) {
+    private HttpServletRequest request;
+    public ClientDirectService(ClientDirectMapper clientDirectMapper, BugReportMapper bugReportMapper, ClientDataMapper clientDataMapper, HttpServletRequest request) {
         this.clientDirectMapper = clientDirectMapper;
         this.bugReportMapper = bugReportMapper;
         this.clientDataMapper = clientDataMapper;
+        this.request = request;
     }
 
 
@@ -86,6 +90,9 @@ public class ClientDirectService {
     }
 
     public int dateUpload(ClientData clientData) {
+        IPSeeker is = new IPSeeker();
+        clientData.setIp(NoteUtil.getIpAddr(request));
+        clientData.setLocation(is.getAddress(clientData.getIp()));
         try {
             clientDataMapper.insert(clientData);
             return 1;

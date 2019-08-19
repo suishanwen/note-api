@@ -7,6 +7,8 @@ public class ClientData {
     private String date;
     private String reward;
     private String detail;
+    private String ip;
+    private String location;
     @Transient
     private String sortNo;
 
@@ -51,5 +53,21 @@ public class ClientData {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
