@@ -45,8 +45,6 @@ public class IPSeeker {
         }
     }
 
-    private static final String IP_FILE = IPSeeker.class
-            .getResource("/qqwry.dat").toString().substring(5);
     private static final String IP_FILE_HOME = "/home/qqwry.dat";
 
     // 一些固定常量，比如记录长度等等
@@ -79,9 +77,12 @@ public class IPSeeker {
         buf = new byte[100];
         b4 = new byte[4];
         b3 = new byte[3];
+
         try {
+            String IP_FILE = IPSeeker.class
+                    .getResource("/qqwry.dat").toString().substring(5);
             ipFile = new RandomAccessFile(IP_FILE, "r");
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | NullPointerException e) {
             try {
                 ipFile = new RandomAccessFile(IP_FILE_HOME, "r");
             } catch (FileNotFoundException ex) {
