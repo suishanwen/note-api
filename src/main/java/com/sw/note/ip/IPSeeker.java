@@ -1,5 +1,7 @@
 package com.sw.note.ip;
 
+import org.slf4j.LoggerFactory;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -18,12 +20,12 @@ import java.util.List;
  * 不管为0x1还是0x2，后三个字节都是实际国家名的文件内绝对偏移
  * 如果是地区记录，0x1和0x2的含义不明，但是如果出现这两个字节，也肯定是跟着3个字节偏移，如果不是 则为0结尾字符串 三.
  * "起始地址/结束地址偏移"记录区 1. 每条记录7字节，按照起始地址从小到大排列 a. 起始IP地址，4字节 b. 结束ip地址的绝对偏移，3字节
- *
+ * <p>
  * 注意，这个文件里的ip地址和所有的偏移量均采用little-endian格式，而java是采用 big-endian格式的，要注意转换
- *
- *
  */
 public class IPSeeker {
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+
     /**
      * * 用来封装ip相关信息，目前只有两个字段，ip所在的国家和地区
      */
@@ -45,6 +47,7 @@ public class IPSeeker {
 
     private static final String IP_FILE = IPSeeker.class
             .getResource("/QQWry.dat").toString().substring(5);
+    private static final String IP_FILE_HOME = "/home/QQWry.dat";
 
     // 一些固定常量，比如记录长度等等
     private static final int IP_RECORD_LENGTH = 7;
@@ -79,13 +82,15 @@ public class IPSeeker {
         try {
             ipFile = new RandomAccessFile(IP_FILE, "r");
         } catch (FileNotFoundException e) {
-            System.out.println(IPSeeker.class.getResource("/QQWry.dat")
-                    .toString());
-            System.out.println(IP_FILE);
-            System.out.println("IP地址信息文件没有找到，IP显示功能将无法使用");
-            ipFile = null;
-
+            try {
+                ipFile = new RandomAccessFile(IP_FILE_HOME, "r");
+            } catch (FileNotFoundException ex) {
+                logger.warn(IP_FILE_HOME);
+                logger.warn("HOME:IP地址信息文件没有找到，IP显示功能将无法使用");
+                ipFile = null;
+            }
         }
+
         // 如果打开文件成功，读取文件头信息
         if (ipFile != null) {
             try {
@@ -96,7 +101,7 @@ public class IPSeeker {
                     ipFile = null;
                 }
             } catch (IOException e) {
-                System.out.println("IP地址信息文件格式有错误，IP显示功能将无法使用");
+                logger.warn("IP地址信息文件格式有错误，IP显示功能将无法使用");
                 ipFile = null;
             }
         }
@@ -182,7 +187,7 @@ public class IPSeeker {
                 }
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return ret;
     }
@@ -368,7 +373,7 @@ public class IPSeeker {
             ip[1] = ip[2];
             ip[2] = temp;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            logger.warn(e.getMessage());
         }
     }
 
@@ -606,7 +611,7 @@ public class IPSeeker {
             if (i != 0)
                 return Utils.getString(buf, 0, i, "UTF8");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return "";
     }
@@ -626,7 +631,7 @@ public class IPSeeker {
             if (i != 0)
                 return Utils.getString(buf, 0, i, "UTF8");
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return "";
     }
@@ -641,7 +646,7 @@ public class IPSeeker {
 
     public static void main(String[] args) {
         IPSeeker is = new IPSeeker();
-        System.out.println(is.getAddress(""));
+//        System.out.println.warn(is.getAddress(""));
     }
 
 }

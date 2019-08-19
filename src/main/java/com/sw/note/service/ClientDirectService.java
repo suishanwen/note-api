@@ -90,9 +90,8 @@ public class ClientDirectService {
     }
 
     public int dateUpload(ClientData clientData) {
-        IPSeeker is = new IPSeeker();
         clientData.setIp(NoteUtil.getIpAddr(request));
-        clientData.setLocation(is.getAddress(clientData.getIp()));
+        clientData.setLocation(IPSeeker.getInstance().getAddress(clientData.getIp()));
         try {
             clientDataMapper.insert(clientData);
             return 1;
