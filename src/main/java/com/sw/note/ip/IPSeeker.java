@@ -609,7 +609,7 @@ public class IPSeeker {
                     .readByte())
                 ;
             if (i != 0)
-                return Utils.getString(buf, 0, i, "UTF8");
+                return Utils.getString(buf, 0, i, "UTF-8");
         } catch (IOException e) {
             logger.warn(e.getMessage());
         }
@@ -629,7 +629,7 @@ public class IPSeeker {
             for (i = 0, buf[i] = mbb.get(); buf[i] != 0; buf[++i] = mbb.get())
                 ;
             if (i != 0)
-                return Utils.getString(buf, 0, i, "UTF8");
+                return Utils.getString(buf, 0, i, "UTF-8");
         } catch (IllegalArgumentException e) {
             logger.warn(e.getMessage());
         }
