@@ -46,8 +46,8 @@ public class IPSeeker {
     }
 
     private static final String IP_FILE = IPSeeker.class
-            .getResource("/QQWry.dat").toString().substring(5);
-    private static final String IP_FILE_HOME = "/home/QQWry.dat";
+            .getResource("/qqwry.dat").toString().substring(5);
+    private static final String IP_FILE_HOME = "/home/qqwry.dat";
 
     // 一些固定常量，比如记录长度等等
     private static final int IP_RECORD_LENGTH = 7;
@@ -85,7 +85,6 @@ public class IPSeeker {
             try {
                 ipFile = new RandomAccessFile(IP_FILE_HOME, "r");
             } catch (FileNotFoundException ex) {
-                logger.warn(IP_FILE_HOME);
                 logger.warn("HOME:IP地址信息文件没有找到，IP显示功能将无法使用");
                 ipFile = null;
             }
