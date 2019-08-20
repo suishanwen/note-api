@@ -640,7 +640,10 @@ public class IPSeeker {
         String country = getCountry(ip).equals(" CZ88.NET") ? "null"
                 : getCountry(ip);
         String area = getArea(ip).equals(" CZ88.NET") ? "null" : getArea(ip);
-        String address = country + "|" + area;
+        String address = country;
+        if (!"电信".equals(area)) {
+            address = country + "|" + area;
+        }
         return address.trim();
     }
 

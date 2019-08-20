@@ -20,6 +20,7 @@ public class IPEntry {
         beginIp = endIp = country = area = "";
     }
 
+    @Override
     public String toString() {
         return this.area + "  " + this.country + "IP范围:" + this.beginIp + "-"
                 + this.endIp;
