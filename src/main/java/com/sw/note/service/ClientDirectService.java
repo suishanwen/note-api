@@ -78,7 +78,7 @@ public class ClientDirectService {
         direct = direct.trim();
         String[] idArray = ids.split(",");
         if (all == 1) {
-            clientDirectMapper.updateDirect(direct);
+            clientDirectMapper.updateDirectAll(direct);
         } else {
             for (String id : idArray) {
                 clientDirectMapper.updateDirect(id, direct);
