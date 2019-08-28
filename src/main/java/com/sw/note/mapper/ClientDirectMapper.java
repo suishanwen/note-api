@@ -108,6 +108,13 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
     void updateDirect(@Param("id") String id, @Param("direct") String direct);
 
 
+    @Update("<script> \n" +
+            "UPDATE\n" +
+            "    client_direct\n" +
+            "SET direct = #{direct}\n" +
+            "</script>")
+    void updateDirect( @Param("direct") String direct);
+
     @Delete("<script> \n" +
             "DELETE FROM\n" +
             "    client_direct\n" +

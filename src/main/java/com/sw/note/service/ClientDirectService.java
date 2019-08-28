@@ -29,6 +29,7 @@ public class ClientDirectService {
     private BugReportMapper bugReportMapper;
     private ClientDataMapper clientDataMapper;
     private HttpServletRequest request;
+
     public ClientDirectService(ClientDirectMapper clientDirectMapper, BugReportMapper bugReportMapper, ClientDataMapper clientDataMapper, HttpServletRequest request) {
         this.clientDirectMapper = clientDirectMapper;
         this.bugReportMapper = bugReportMapper;
@@ -73,15 +74,19 @@ public class ClientDirectService {
         }
     }
 
-    public void updateDirect(String ids, String direct) {
+    public void updateDirect(String ids, int all, String direct) {
         direct = direct.trim();
         String[] idArray = ids.split(",");
-        for (String id : idArray) {
-            clientDirectMapper.updateDirect(id, direct);
+        if (all == 1) {
+            clientDirectMapper.updateDirect(direct);
+        } else {
+            for (String id : idArray) {
+                clientDirectMapper.updateDirect(id, direct);
+            }
         }
     }
 
-    public int checkVersion(){
+    public int checkVersion() {
         return clientDirectMapper.checkVersion();
     }
 
