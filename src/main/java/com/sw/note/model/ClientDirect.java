@@ -10,6 +10,7 @@ public class ClientDirect {
     private String userId;
     private String workerId;
     private int sortNo;
+    private String instance;
     private String projectName;
     private String success;
     private Date reportTime;
@@ -40,6 +41,14 @@ public class ClientDirect {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getInstance() {
+        return instance;
+    }
+
+    public void setInstance(String instance) {
+        this.instance = instance;
     }
 
     public String getWorkerId() {

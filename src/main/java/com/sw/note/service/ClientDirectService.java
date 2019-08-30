@@ -38,6 +38,11 @@ public class ClientDirectService {
     }
 
 
+    public String setInstance(String id, String instance) {
+        clientDirectMapper.setInstance(id, instance);
+        return instance;
+    }
+
     public String load(String userId, int sortNo, String version) {
         String id = clientDirectMapper.selectIdByUser(userId, sortNo);
         if (StringUtils.isEmpty(id)) {

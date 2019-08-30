@@ -67,6 +67,15 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
     @Update("<script> \n" +
             "UPDATE \n" +
             "    client_direct\n" +
+            "SET  instance= #{instance}\n" +
+            "WHERE \n" +
+            "    id = #{id}\n" +
+            "</script>")
+    void setInstance(@Param("id") String id, @Param("instance") String instance);
+
+    @Update("<script> \n" +
+            "UPDATE \n" +
+            "    client_direct\n" +
             "SET  direct=''\n" +
             "WHERE \n" +
             "    id = #{id}\n" +
