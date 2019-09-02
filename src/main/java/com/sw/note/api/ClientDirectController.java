@@ -29,7 +29,6 @@ public class ClientDirectController {
         this.clientDirectService = clientDirectService;
     }
 
-
     @ApiOperation(value = "加载客户端信息", notes = "加载客户端信息")
     @GetMapping(value = "load")
     @ApiImplicitParams({
@@ -59,6 +58,13 @@ public class ClientDirectController {
     @ApiImplicitParam(name = "userId", paramType = "query", required = true, dataType = "String")
     public List<ClientDirect> selectByUserId(@RequestParam("userId") String userId) {
         return clientDirectService.selectByUserId(userId);
+    }
+
+    @ApiOperation(value = "通过Id获取位置", notes = "通过Id获取位置")
+    @GetMapping(value = "selectByUserId")
+    @ApiImplicitParam(name = "id", paramType = "query", required = true, dataType = "String")
+    public String selectLocationById(@RequestParam("id") String id) {
+        return clientDirectService.selectLocationById(id);
     }
 
     @ApiOperation(value = "删除", notes = "删除")

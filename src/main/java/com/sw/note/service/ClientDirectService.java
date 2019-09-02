@@ -37,6 +37,10 @@ public class ClientDirectService {
         this.request = request;
     }
 
+    public String selectLocationById(String id) {
+        return clientDataMapper.selectLocationById(id);
+    }
+
 
     public String setInstance(String id, String instance) {
         clientDirectMapper.setInstance(id, instance);

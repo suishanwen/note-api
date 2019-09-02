@@ -36,5 +36,17 @@ public interface ClientDataMapper extends tk.mybatis.mapper.common.Mapper<Client
             "ORDER BY\n" +
             "\ta.sort_no ASC")
     List<ClientData> selectDataByUserId(@Param("userId") String userId, @Param("date") String date);
+
+    @Select("SELECT\n" +
+            "\tlocation \n" +
+            "FROM\n" +
+            "\tclient_data \n" +
+            "WHERE\n" +
+            "\tid = #{id} \n" +
+            "ORDER BY\n" +
+            "\tdate DESC \n" +
+            "\tLIMIT 1")
+    String selectLocationById(@Param("id") String id);
+
 }
 
