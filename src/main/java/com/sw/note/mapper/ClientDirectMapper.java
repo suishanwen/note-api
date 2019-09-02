@@ -86,23 +86,37 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
 
     @Select("<script> \n" +
             "SELECT\n" +
-            "   cd.*\n" +
+            "   id,\n" +
+            "   sort_no,\n" +
+            "   instance,\n" +
+            "   project_name,\n" +
+            "   success,\n" +
+            "   update_time,\n" +
+            "   direct,\n" +
+            "   version\n" +
             "FROM\n" +
-            "    client_direct cd\n" +
+            "    client_direct\n" +
             "WHERE \n" +
-            "    cd.user_id = #{userId}\n" +
+            "    user_id = #{userId}\n" +
             "ORDER BY\n" +
-            "    cd.sort_no\n" +
+            "    sort_no\n" +
             "</script>")
     List<ClientDirect> selectByUserId(@Param("userId") String userId);
 
     @Select("<script> \n" +
             "SELECT\n" +
-            "   cd.*\n" +
+            "   id,\n" +
+            "   sort_no,\n" +
+            "   instance,\n" +
+            "   project_name,\n" +
+            "   success,\n" +
+            "   update_time,\n" +
+            "   direct,\n" +
+            "   version\n" +
             "FROM\n" +
-            "    client_direct cd\n" +
+            "    client_direct\n" +
             "ORDER BY\n" +
-            "    cd.user_id,cd.sort_no\n" +
+            "    user_id,sort_no\n" +
             "</script>")
     List<ClientDirect> selectAllCient();
 

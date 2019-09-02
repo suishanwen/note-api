@@ -141,7 +141,7 @@ public class ClientDirectService {
         //向图片上写字符串
         g2.drawString(String.format("%s", now), 15, 30);
         g2.setColor(Color.red);
-        g2.drawString("Active Clients : " + activeClient, 55, 60);
+        g2.drawString("Active Robots : " + activeClient, 55, 60);
         return bi;
     }
 
