@@ -91,6 +91,7 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
             "   instance,\n" +
             "   project_name,\n" +
             "   success,\n" +
+            "   reward,\n" +
             "   update_time,\n" +
             "   direct,\n" +
             "   version\n" +
@@ -110,6 +111,7 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
             "   instance,\n" +
             "   project_name,\n" +
             "   success,\n" +
+            "   reward,\n" +
             "   update_time,\n" +
             "   direct,\n" +
             "   version\n" +

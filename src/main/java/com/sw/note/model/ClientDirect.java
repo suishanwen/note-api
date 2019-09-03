@@ -13,6 +13,7 @@ public class ClientDirect {
     private String instance;
     private String projectName;
     private String success;
+    private String reward;
     private Date reportTime;
     private Date updateTime;
     private String direct;
@@ -113,5 +114,13 @@ public class ClientDirect {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public String getReward() {
+        return reward;
+    }
+
+    public void setReward(String reward) {
+        this.reward = reward;
     }
 }
