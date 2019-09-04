@@ -69,8 +69,8 @@ public class ClientDirectService {
         return 1;
     }
 
-    public void deleteClient(String userId, int sortNo) {
-        clientDirectMapper.deleteByUser(userId, sortNo);
+    public void deleteClient(String id) {
+        clientDirectMapper.deleteById(id);
     }
 
 

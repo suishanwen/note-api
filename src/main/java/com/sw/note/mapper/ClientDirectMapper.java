@@ -144,10 +144,9 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
             "DELETE FROM\n" +
             "    client_direct\n" +
             "WHERE \n" +
-            "    user_id = #{userId}\n" +
-            "AND sort_no = #{sortNo}\n" +
+            "    id = #{id}\n" +
             "</script>")
-    void deleteByUser(@Param("userId") String userId, @Param("sortNo") int sortNo);
+    void deleteById(@Param("id") String id);
 
     @Select("SELECT\n" +
             "\tcount( id ) \n" +

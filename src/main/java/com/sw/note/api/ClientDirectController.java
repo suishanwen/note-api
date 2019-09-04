@@ -69,12 +69,9 @@ public class ClientDirectController {
 
     @ApiOperation(value = "删除", notes = "删除")
     @PostMapping(value = "delete")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", paramType = "query", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "sortNo", paramType = "query", required = true, dataType = "int"),
-    })
-    public void deleteClient(@RequestParam("userId") String userId, @RequestParam("sortNo") int sortNo) {
-        clientDirectService.deleteClient(userId, sortNo);
+    @ApiImplicitParam(name = "id", paramType = "query", required = true, dataType = "String")
+    public void deleteClient(@RequestParam("id") String id) {
+        clientDirectService.deleteClient(id);
     }
 
     @ApiOperation(value = "设置实例", notes = "设置实例")
