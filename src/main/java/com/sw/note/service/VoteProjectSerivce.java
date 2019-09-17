@@ -1,5 +1,6 @@
 package com.sw.note.service;
 
+import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.mapper.VoteProjectMapper;
 import com.sw.note.model.VoteProject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class VoteProjectSerivce {
 
 
     public List<VoteProject> query() {
-        return voteProjectMapper.query();
+        return VoteProjectCache.get();
     }
 
     public void empty() {

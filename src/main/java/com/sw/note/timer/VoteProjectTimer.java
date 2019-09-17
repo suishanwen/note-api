@@ -1,6 +1,7 @@
 package com.sw.note.timer;
 
 import com.google.common.collect.Lists;
+import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.model.VoteProject;
 import com.sw.note.service.VoteProjectSerivce;
 import org.apache.logging.log4j.util.Strings;
@@ -108,6 +109,7 @@ public class VoteProjectTimer {
     private void saveVoteProject(List<VoteProject> voteProjectList) {
         voteProjectSerivce.empty();
         voteProjectSerivce.save(voteProjectList);
+        VoteProjectCache.set(voteProjectList);
     }
 }
 
