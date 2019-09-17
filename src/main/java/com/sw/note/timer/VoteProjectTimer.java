@@ -103,7 +103,10 @@ public class VoteProjectTimer {
             String backgroundAddress = addressInfo.get(1).attr("href");
             String projectName = projectElement.text().split("-")[3].replace("_" + backGroundNo, "");
             String[] amountInfo = amountTd.text().split("：");
-            int hot = Integer.parseInt(amountInfo[1].split(" ")[0]);
+            int hot = 0;
+            if (!amountInfo[1].contains("新任务")) {
+                hot = Integer.parseInt(amountInfo[1].split(" ")[0]);
+            }
             long finishQuantity = Long.parseLong(amountInfo[2].split("/")[0]);
             long totalRequire = Long.parseLong(amountInfo[2].split("/")[1]);
             long remains = totalRequire >= finishQuantity ? totalRequire - finishQuantity : 0;
