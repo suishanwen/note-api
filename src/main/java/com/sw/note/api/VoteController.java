@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Api(value = "投票", description = "投票", tags = "4")
+@Api(value = "投票App", description = "投票App", tags = "4")
 @RestController
 @RequestMapping(path = "/vote")
 public class VoteController {
