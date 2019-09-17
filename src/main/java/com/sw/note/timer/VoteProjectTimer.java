@@ -50,8 +50,8 @@ public class VoteProjectTimer {
                 String html = getHtml();
                 List<VoteProject> voteProjectList = analyzeHtml(html);
                 saveVoteProject(voteProjectList);
-            }catch (Exception e){
-                clientDirectService.bugReport("server",e.getMessage());
+            } catch (Exception e) {
+                clientDirectService.bugReport("server", e.getMessage());
             }
             running = false;
         };
@@ -101,7 +101,7 @@ public class VoteProjectTimer {
             Element projectElement = projectInfo.get(0);
             String downloadAddress = addressInfo.get(0).attr("href");
             String backgroundAddress = addressInfo.get(1).attr("href");
-            String projectName = projectElement.text().split("-")[3];
+            String projectName = projectElement.text().split("-")[3].replace("_" + backGroundNo, "");
             String[] amountInfo = amountTd.text().split("：");
             int hot = Integer.parseInt(amountInfo[1].split(" ")[0]);
             long finishQuantity = Long.parseLong(amountInfo[2].split("/")[0]);
