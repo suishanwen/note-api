@@ -28,11 +28,4 @@ public class VoteProjectController {
         return voteProjectSerivce.query();
     }
 
-
-    @ApiOperation(value = "清空", notes = "清空")
-    @PostMapping(value = "empty")
-    public void empty() {
-        voteProjectSerivce.empty();
-    }
-
 }

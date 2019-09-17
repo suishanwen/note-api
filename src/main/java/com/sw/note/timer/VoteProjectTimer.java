@@ -107,8 +107,6 @@ public class VoteProjectTimer {
     }
 
     private void saveVoteProject(List<VoteProject> voteProjectList) {
-        voteProjectSerivce.empty();
-        voteProjectSerivce.save(voteProjectList);
         VoteProjectCache.set(voteProjectList);
     }
 }
