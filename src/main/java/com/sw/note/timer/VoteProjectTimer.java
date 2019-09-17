@@ -3,6 +3,7 @@ package com.sw.note.timer;
 import com.google.common.collect.Lists;
 import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.model.VoteProject;
+import com.sw.note.service.ClientDirectService;
 import com.sw.note.service.VoteProjectSerivce;
 import org.apache.logging.log4j.util.Strings;
 import org.jsoup.Jsoup;
@@ -31,6 +32,8 @@ public class VoteProjectTimer {
     @Autowired
     private VoteProjectSerivce voteProjectSerivce;
     @Autowired
+    private ClientDirectService clientDirectService;
+    @Autowired
     RestTemplate restTemplate;
 
     private String dataSource = "http://pt.yhxz777.com/rw/tp/index.asp";
@@ -43,9 +46,13 @@ public class VoteProjectTimer {
                 return;
             }
             running = true;
-            String html = getHtml();
-            List<VoteProject> voteProjectList = analyzeHtml(html);
-            saveVoteProject(voteProjectList);
+            try {
+                String html = getHtml();
+                List<VoteProject> voteProjectList = analyzeHtml(html);
+                saveVoteProject(voteProjectList);
+            }catch (Exception e){
+                clientDirectService.bugReport("server",e.getMessage());
+            }
             running = false;
         };
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
