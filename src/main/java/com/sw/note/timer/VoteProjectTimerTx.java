@@ -5,6 +5,7 @@ import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.model.VoteProject;
 import com.sw.note.service.ClientDirectService;
 import com.sw.note.service.VoteProjectSerivce;
+import com.sw.note.util.ScheduledExecutorUtil;
 import org.apache.logging.log4j.util.Strings;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -19,14 +20,11 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class VoteProjectTimer {
+public class VoteProjectTimerTx {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -36,7 +34,7 @@ public class VoteProjectTimer {
     @Autowired
     RestTemplate restTemplate;
 
-    private String dataSource = "http://pt.yhxz777.com/rw/tp/index.asp";
+    private String dataSource = "http://2019.txtpw.com/rwlb8.asp";
 
     private boolean running = false;
 
@@ -55,8 +53,7 @@ public class VoteProjectTimer {
             }
             running = false;
         };
-        ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleAtFixedRate(runnable, 0, 10, TimeUnit.SECONDS);
+        ScheduledExecutorUtil.scheduleAtFixedRate(runnable, 0, 10);
     }
 
 
@@ -70,13 +67,11 @@ public class VoteProjectTimer {
 
     private List<VoteProject> analyzeHtml(String html) {
         List<VoteProject> voteProjectList = Lists.newArrayList();
-        Elements tableElements = Jsoup.parse(html).select("table").select("tr");
+        Elements tableElements = Jsoup.parse(html).select("table[style=\"border-left:1px solid #009cec; border-right:1px solid #009cec; background-color:#FFF\"]").select("tr");
         Date date = new Date();
         for (int i = 1; i < tableElements.size(); i++) {
             Elements tdElements = tableElements.get(i).select("td");
-            Element projectTd = tdElements.get(1);
-            Element amountTd = tdElements.get(2);
-            Element backgroundTd = tdElements.get(3);
+            Element backgroundTd = tdElements.get(12);
             String backGrounInfo = backgroundTd.text();
             if (backGrounInfo != null) {
                 if (backGrounInfo.toUpperCase().contains("Q")) {
@@ -90,34 +85,26 @@ public class VoteProjectTimer {
                 }
             }
             Integer backGroundNo = Strings.isNotEmpty(backGrounInfo) ? Integer.parseInt(backGrounInfo) : null;
-            Elements projectInfo = projectTd.select("span");
-            Elements addressInfo = projectTd.select("a");
-            String[] autoInfo = projectInfo.get(2).selectFirst("span").text().split("-");
-            if (!"自动".equals(autoInfo[0])) {
-                continue;
-            }
-            int ipDial = autoInfo[1].contains("不换") ? 0 : 1;
-            double price = Double.parseDouble(projectInfo.get(1).select("span").text().split("/")[0]);
-            Element projectElement = projectInfo.get(0);
-            String downloadAddress = addressInfo.get(0).attr("href");
-            String backgroundAddress = addressInfo.get(1).attr("href");
-            String projectName = projectElement.text().split("-")[3].replace("_" + backGroundNo, "");
-            String[] amountInfo = amountTd.text().split("：");
+            int ipDial = tdElements.get(4).text().contains("不换") ? 0 : 1;
+            double price = Double.parseDouble(tdElements.get(5).text());
+            String downloadAddress = tdElements.get(9).selectFirst("a").attr("href").replace(" ", "");
+            String backgroundAddress = tdElements.get(8).selectFirst("a").attr("href").replace(" ", "");
+            String projectName = tdElements.get(2).text().trim();
             int hot = 0;
-            if (!amountInfo[1].contains("新任务")&&!amountInfo[1].contains("未知")) {
-                hot = Integer.parseInt(amountInfo[1].split(" ")[0]);
+            if (!tdElements.get(3).text().contains("新任务") && !tdElements.get(3).text().contains("未知")) {
+                hot = Integer.parseInt(tdElements.get(3).text().split("/")[0].substring(1).trim());
             }
-            long finishQuantity = Long.parseLong(amountInfo[2].split("/")[0]);
-            long totalRequire = Long.parseLong(amountInfo[2].split("/")[1]);
-            long remains = totalRequire >= finishQuantity ? totalRequire - finishQuantity : 0;
-            VoteProject voteProject = new VoteProject(projectName, ipDial, hot, price, totalRequire, finishQuantity, remains, backGroundNo, backgroundAddress, downloadAddress, "Q7", date);
+            long finishQuantity = 0;
+            long totalRequire = 0;
+            long remains = Long.parseLong(tdElements.get(7).text());
+            VoteProject voteProject = new VoteProject(projectName, ipDial, hot, price, totalRequire, finishQuantity, remains, backGroundNo, backgroundAddress, downloadAddress, "TX", date);
             voteProjectList.add(voteProject);
         }
         return voteProjectList;
     }
 
     private void saveVoteProject(List<VoteProject> voteProjectList) {
-        VoteProjectCache.set(voteProjectList);
+        VoteProjectCache.setListTx(voteProjectList);
     }
 }
 
