@@ -79,11 +79,16 @@ public class VoteProjectTimerQ7 {
                 if (backGrounInfo.toUpperCase().contains("Q")) {
                     continue;
                 }
-                Matcher matcher = Pattern.compile("\\d{3}").matcher(backGrounInfo);
+                Matcher matcher = Pattern.compile("\\d{4}").matcher(backGrounInfo);
                 if (matcher.find()) {
                     backGrounInfo = matcher.group(0);
                 } else {
-                    backGrounInfo = null;
+                    matcher = Pattern.compile("\\d{3}").matcher(backGrounInfo);
+                    if(matcher.find()){
+                        backGrounInfo = matcher.group(0);
+                    }else{
+                        backGrounInfo = null;
+                    }
                 }
             }
             Integer backGroundNo = Strings.isNotEmpty(backGrounInfo) ? Integer.parseInt(backGrounInfo) : null;
