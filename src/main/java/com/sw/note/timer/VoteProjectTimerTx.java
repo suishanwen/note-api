@@ -92,7 +92,7 @@ public class VoteProjectTimerTx {
             String projectName = tdElements.get(2).text().trim();
             int hot = 0;
             if (!tdElements.get(3).text().contains("新任务") && !tdElements.get(3).text().contains("未知")) {
-                hot = Integer.parseInt(tdElements.get(3).text().split("/")[0].substring(1).trim());
+                hot = Double.valueOf(tdElements.get(3).text().split("/")[0].substring(1).trim()).intValue();
             }
             long finishQuantity = 0;
             long totalRequire = 0;

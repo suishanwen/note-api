@@ -110,7 +110,7 @@ public class VoteProjectTimerQ7 {
             String[] amountInfo = amountTd.text().split("：");
             int hot = 0;
             if (!amountInfo[1].contains("新任务") && !amountInfo[1].contains("未知")) {
-                hot = Integer.parseInt(amountInfo[1].split(" ")[0]);
+                hot = Double.valueOf(amountInfo[1].split(" ")[0]).intValue();
             }
             long finishQuantity = Long.parseLong(amountInfo[2].split("/")[0]);
             long totalRequire = Long.parseLong(amountInfo[2].split("/")[1]);
