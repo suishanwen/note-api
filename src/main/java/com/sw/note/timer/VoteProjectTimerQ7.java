@@ -49,7 +49,9 @@ public class VoteProjectTimerQ7 {
                 List<VoteProject> voteProjectList = analyzeHtml(html);
                 saveVoteProject(voteProjectList);
             } catch (Exception e) {
-                clientDirectService.bugReport("server", e.getMessage());
+                if(!e.getMessage().contains("SocketTimeoutException")){
+                    clientDirectService.bugReport("server", e.getMessage());
+                }
             }
             running = false;
         };
