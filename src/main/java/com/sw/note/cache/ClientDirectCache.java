@@ -73,7 +73,7 @@ public class ClientDirectCache {
         String version = clientDirectMap.values().stream().map(ClientDirect::getVersion).max(String::compareTo).orElse("");
         clientDirectMap.values().stream().filter(clientDirect -> !version.equals(clientDirect.getVersion()))
                 .forEach(clientDirect -> {
-                    clientDirect.setVersion(version);
+                    clientDirect.setDirect("TASK_SYS_UPDATE");
                     clientDirect.set$synchronized(false);
                 });
     }
