@@ -123,11 +123,13 @@ public class ClientDirectService {
     }
 
     public int checkVersion() {
-        return clientDirectMapper.checkVersion();
+        return ClientDirectCache.versions();
+//        return clientDirectMapper.checkVersion();
     }
 
     public void upgradeLatest() {
-        clientDirectMapper.updateLatestVersion(clientDirectMapper.selectLatestVersion());
+        ClientDirectCache.upgrade();
+//        clientDirectMapper.updateLatestVersion(clientDirectMapper.selectLatestVersion());
     }
 
     public int dataUpload(ClientData clientData) {

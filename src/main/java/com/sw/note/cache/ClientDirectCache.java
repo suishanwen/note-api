@@ -64,4 +64,17 @@ public class ClientDirectCache {
             }
         }).collect(Collectors.toList());
     }
+
+    public static int versions() {
+        return Long.valueOf(clientDirectMap.values().stream().map(ClientDirect::getVersion).distinct().count()).intValue();
+    }
+
+    public static void upgrade() {
+        String version = clientDirectMap.values().stream().map(ClientDirect::getVersion).max(String::compareTo).orElse("");
+        clientDirectMap.values().stream().filter(clientDirect -> !version.equals(clientDirect.getVersion()))
+                .forEach(clientDirect -> {
+                    clientDirect.setVersion(version);
+                    clientDirect.set$synchronized(false);
+                });
+    }
 }
