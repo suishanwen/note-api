@@ -1,6 +1,7 @@
 package com.sw.note.model;
 
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Date;
 
 public class ClientDirect {
@@ -19,6 +20,9 @@ public class ClientDirect {
     private String direct;
     private String version;
 
+    @Transient
+    private boolean $synchronized = true;
+
     public ClientDirect() {
     }
 
@@ -26,6 +30,16 @@ public class ClientDirect {
         this.id = id;
         this.userId = userId;
         this.sortNo = sortNo;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientDirect{" +
+                "workerId='" + workerId + '\'' +
+                ", projectName='" + projectName + '\'' +
+                ", success='" + success + '\'' +
+                ", reward='" + reward + '\'' +
+                '}';
     }
 
     public String getId() {
@@ -122,5 +136,13 @@ public class ClientDirect {
 
     public void setReward(String reward) {
         this.reward = reward;
+    }
+
+    public boolean is$synchronized() {
+        return $synchronized;
+    }
+
+    public void set$synchronized(boolean $synchronized) {
+        this.$synchronized = $synchronized;
     }
 }

@@ -108,8 +108,8 @@ public class ClientDirectController {
 
     @ApiOperation(value = "上传数据", notes = "上传数据")
     @PostMapping(value = "upload")
-    public int dateUpload(@RequestBody ClientData clientData) {
-        return clientDirectService.dateUpload(clientData);
+    public int dataUpload(@RequestBody ClientData clientData) {
+        return clientDirectService.dataUpload(clientData);
     }
 
     @ApiOperation(value = "获取用户数据日报", notes = "获取用户数据日报")

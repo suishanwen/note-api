@@ -106,15 +106,7 @@ public interface ClientDirectMapper extends tk.mybatis.mapper.common.Mapper<Clie
 
     @Select("<script> \n" +
             "SELECT\n" +
-            "   id,\n" +
-            "   sort_no,\n" +
-            "   instance,\n" +
-            "   project_name,\n" +
-            "   success,\n" +
-            "   reward,\n" +
-            "   update_time,\n" +
-            "   direct,\n" +
-            "   version\n" +
+            "   *\n" +
             "FROM\n" +
             "    client_direct\n" +
             "ORDER BY\n" +

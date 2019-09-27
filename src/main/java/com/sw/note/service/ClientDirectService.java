@@ -1,5 +1,6 @@
 package com.sw.note.service;
 
+import com.sw.note.cache.ClientDirectCache;
 import com.sw.note.ip.IPSeeker;
 import com.sw.note.mapper.BugReportMapper;
 import com.sw.note.mapper.ClientDataMapper;
@@ -9,6 +10,7 @@ import com.sw.note.model.ClientData;
 import com.sw.note.model.ClientDirect;
 //import org.slf4j.LoggerFactory;
 import com.sw.note.util.NoteUtil;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -16,6 +18,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,7 +26,7 @@ import java.util.UUID;
 @Service
 @Transactional
 public class ClientDirectService {
-//    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private ClientDirectMapper clientDirectMapper;
     private BugReportMapper bugReportMapper;
@@ -37,13 +40,22 @@ public class ClientDirectService {
         this.request = request;
     }
 
+    public void synchronize(List<ClientDirect> clientDirectList) {
+        clientDirectList.forEach(clientDirect -> {
+            clientDirectMapper.updateByPrimaryKey(clientDirect);
+            clientDirect.set$synchronized(true);
+        });
+    }
+
+
     public String selectLocationById(String id) {
         return clientDataMapper.selectLocationById(id);
     }
 
 
     public String setInstance(String id, String instance) {
-        clientDirectMapper.setInstance(id, instance);
+        ClientDirectCache.setVal(id, "instance", instance);
+//        clientDirectMapper.setInstance(id, instance);
         return instance;
     }
 
@@ -52,45 +64,60 @@ public class ClientDirectService {
         if (StringUtils.isEmpty(id)) {
             id = UUID.randomUUID().toString().split("-")[0];
             clientDirectMapper.insertClient(id, userId, sortNo);
+            ClientDirectCache.put(new ClientDirect(id, userId, sortNo));
         }
-        clientDirectMapper.setVersion(id, version);
+        ClientDirectCache.setVal(id, "version", version);
+//        clientDirectMapper.setVersion(id, version);
         return id;
     }
 
     public String direct(ClientDirect clientDirect) {
         //clientDirect.setReportTime(new Date());
-        clientDirectMapper.updateByPrimaryKeySelective(clientDirect);
-        return clientDirectMapper.selectDirectById(clientDirect.getId());
+        String id = clientDirect.getId();
+        ClientDirect clientDirectCache = ClientDirectCache.get(id);
+        if (!clientDirect.toString().equals(clientDirectCache.toString())) {
+            clientDirectCache.setProjectName(clientDirect.getProjectName());
+            clientDirectCache.setWorkerId(clientDirect.getWorkerId());
+            clientDirectCache.setSuccess(clientDirect.getSuccess());
+            clientDirectCache.setReward(clientDirect.getReward());
+            clientDirectCache.setUpdateTime(new Date());
+            clientDirectCache.set$synchronized(false);
+        }
+//        clientDirectMapper.updateByPrimaryKeySelective(clientDirect);
+//        return clientDirectMapper.selectDirectById(clientDirect.getId());
+        return clientDirectCache.getDirect();
     }
 
     public int confirm(String id, String direct) {
         direct = direct.trim();
-        clientDirectMapper.confirmDirect(id, direct);
+        ClientDirect clientDirect = ClientDirectCache.get(id);
+        if (direct.equals(clientDirect.getDirect())) {
+            ClientDirectCache.setVal(id, "direct", "");
+
+        }
+//        clientDirectMapper.confirmDirect(id, direct);
         return 1;
     }
 
     public void deleteClient(String id) {
         clientDirectMapper.deleteById(id);
+        ClientDirectCache.remove(id);
     }
 
-
     public List<ClientDirect> selectByUserId(String userId) {
-        String superUser = "root";
-        if (superUser.equals(userId)) {
-            return clientDirectMapper.selectAllCient();
-        } else {
-            return clientDirectMapper.selectByUserId(userId);
-        }
+        return ClientDirectCache.selectByUserId(userId);
     }
 
     public void updateDirect(String ids, int all, String direct) {
         direct = direct.trim();
         String[] idArray = ids.split(",");
         if (all == 1) {
-            clientDirectMapper.updateDirectAll(direct);
+            ClientDirectCache.setValAll("direct", direct);
+//            clientDirectMapper.updateDirectAll(direct);
         } else {
             for (String id : idArray) {
-                clientDirectMapper.updateDirect(id, direct);
+                ClientDirectCache.setVal(id, "direct", direct);
+//                clientDirectMapper.updateDirect(id, direct);
             }
         }
     }
@@ -103,7 +130,7 @@ public class ClientDirectService {
         clientDirectMapper.updateLatestVersion(clientDirectMapper.selectLatestVersion());
     }
 
-    public int dateUpload(ClientData clientData) {
+    public int dataUpload(ClientData clientData) {
         clientData.setIp(NoteUtil.getIpAddr(request));
         clientData.setLocation(IPSeeker.getInstance().getAddress(clientData.getIp()));
         try {
@@ -150,7 +177,11 @@ public class ClientDirectService {
     }
 
     public void bugReport(String id, String msg) {
-        bugReportMapper.insert(new BugReport(id, msg));
+        try {
+            bugReportMapper.insert(new BugReport(id, msg));
+        } catch (Exception e) {
+            logger.warn("bugReport:" + e.getMessage());
+        }
     }
 
 }
