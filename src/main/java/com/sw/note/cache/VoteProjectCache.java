@@ -3,19 +3,15 @@ package com.sw.note.cache;
 import com.google.common.collect.Lists;
 import com.sw.note.model.VoteProject;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toCollection;
 
 public class VoteProjectCache {
 
     private static List<VoteProject> list = Lists.newArrayList();
     private static List<VoteProject> listQ7 = Lists.newArrayList();
     private static List<VoteProject> listTx = Lists.newArrayList();
+    private static List<VoteProject> listAq = Lists.newArrayList();
 
     public static List<VoteProject> get() {
         return list;
@@ -25,6 +21,7 @@ public class VoteProjectCache {
         List<VoteProject> listTmp = Lists.newArrayList();
         listTmp.addAll(listTx);
         listTmp.addAll(listQ7);
+        listTmp.addAll(listAq);
         List<String> keyList = Lists.newArrayList();
         list = listTmp.stream().filter(voteProject -> {
             boolean inExist = !keyList.contains(voteProject.getProjectName());
@@ -43,7 +40,7 @@ public class VoteProjectCache {
         VoteProjectCache.listTx = listTx;
     }
 
-    public static void empty() {
-        list.clear();
+    public static void setListAq(List<VoteProject> listAq) {
+        VoteProjectCache.listAq = listAq;
     }
 }
