@@ -11,11 +11,10 @@ import java.util.stream.Collectors;
 
 public class ClientDirectCache {
 
-    private static Map<String, ClientDirect> clientDirectMap;
+    private static Map<String, ClientDirect> clientDirectMap = Maps.newConcurrentMap();
     private static ObjectUtil objectUtil = new ObjectUtil();
 
     public static void init(List<ClientDirect> clientDirectList) {
-        clientDirectMap = Maps.newConcurrentMap();
         clientDirectList.forEach(clientDirect -> {
             clientDirectMap.put(clientDirect.getId(), clientDirect);
         });
