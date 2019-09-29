@@ -19,6 +19,9 @@ public class StartRunner implements ApplicationRunner {
     private VoteProjectTimerMerge voteProjectTimerMerge;
     @Autowired
     private ClientDirectTimerSync clientDirectTimerSync;
+    @Autowired
+    private ClientDirectTimerReset clientDirectTimerReset;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         clientDirectTimerSync.run();
@@ -26,5 +29,6 @@ public class StartRunner implements ApplicationRunner {
         voteProjectTimerQ7.run();
         voteProjectTimerAq.run();
         voteProjectTimerMerge.run();
+        clientDirectTimerReset.run();
     }
 }

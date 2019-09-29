@@ -17,7 +17,7 @@ public class ScheduledExecutorUtil {
             synchronized (ScheduledExecutorUtil.class) {
                 if (pool == null || pool.isShutdown()) {
                     // 创建线程池
-                    pool = Executors.newScheduledThreadPool(3);
+                    pool = Executors.newScheduledThreadPool(6);
                 }
             }
         }
