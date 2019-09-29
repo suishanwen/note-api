@@ -84,7 +84,7 @@ public class ClientDirectTimerReset {
             String status = "0";
             try {
                 ResponseEntity<String> responseEntity = restTemplate.postForEntity("https://tl.bitcoinrobot.cn/reset/", request, String.class);
-                if (responseEntity.getStatusCode().equals(HttpStatus.OK)) {
+                if (HttpStatus.OK.equals(responseEntity.getStatusCode())) {
                     status = responseEntity.getBody();
                 }
             } catch (Exception e) {
