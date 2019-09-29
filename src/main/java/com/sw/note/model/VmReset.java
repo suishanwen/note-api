@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class VmReset {
 
-    private int sortNo;
+    private String sortNo;
     private String status;
     private Date date;
 
@@ -12,17 +12,17 @@ public class VmReset {
     }
 
 
-    public VmReset(int sortNo, String status, Date date) {
+    public VmReset(String sortNo, String status, Date date) {
         this.sortNo = sortNo;
         this.status = status;
         this.date = date;
     }
 
-    public int getSortNo() {
+    public String getSortNo() {
         return sortNo;
     }
 
-    public void setSortNo(int sortNo) {
+    public void setSortNo(String sortNo) {
         this.sortNo = sortNo;
     }
 

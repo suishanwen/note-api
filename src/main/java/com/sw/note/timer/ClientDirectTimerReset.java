@@ -92,7 +92,7 @@ public class ClientDirectTimerReset {
                 logger.warn("vm-reset:" + e.getMessage());
             }
             try {
-                vmResetMapper.insert(new VmReset(clientDirect.getSortNo(), status, now));
+                vmResetMapper.insert(new VmReset(String.valueOf(clientDirect.getSortNo()), status, now));
             } catch (Exception e) {
                 logger.warn("vm-reset-insert:" + e.getMessage());
             }
