@@ -75,6 +75,9 @@ public class ClientDirectService {
         //clientDirect.setReportTime(new Date());
         String id = clientDirect.getId();
         ClientDirect clientDirectCache = ClientDirectCache.get(id);
+        if (clientDirectCache == null) {
+            return "";
+        }
         if (!clientDirect.toString().equals(clientDirectCache.toString())) {
             clientDirectCache.setProjectName(clientDirect.getProjectName());
             clientDirectCache.setWorkerId(clientDirect.getWorkerId());
