@@ -70,8 +70,7 @@ public class ClientDirectTimerReset {
     }
 
     private void reset() {
-        Date now = new Date();
-        long current = now.getTime();
+        long current = System.currentTimeMillis();
         List<ClientDirect> clientDirectDropedList = ClientDirectCache.selectByUserId("sw").stream()
                 .filter(clientDirect -> current - clientDirect.getUpdateTime().getTime() > 2000 * 1000)
                 .collect(Collectors.toList());
@@ -92,7 +91,7 @@ public class ClientDirectTimerReset {
                 logger.warn("vm-reset:" + e.getMessage());
             }
             try {
-                vmResetMapper.insert(new VmReset(String.valueOf(clientDirect.getSortNo()), status, now));
+                vmResetMapper.insert(new VmReset(String.valueOf(clientDirect.getSortNo()), status, new Date()));
             } catch (Exception e) {
                 logger.warn("vm-reset-insert:" + e.getMessage());
             }
