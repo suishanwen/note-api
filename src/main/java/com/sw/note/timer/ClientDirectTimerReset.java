@@ -84,10 +84,10 @@ public class ClientDirectTimerReset {
             String status = "0";
             try {
                 logger.warn("重启" + clientDirect.getSortNo() + "号");
-                ResponseEntity<String> responseEntity = restTemplate.postForEntity("https://tl.bitcoinrobot.cn/reset/", request, String.class);
-                if (HttpStatus.OK.equals(responseEntity.getStatusCode())) {
-                    status = responseEntity.getBody();
-                }
+//                ResponseEntity<String> responseEntity = restTemplate.postForEntity("https://tl.bitcoinrobot.cn/reset/", request, String.class);
+////                if (HttpStatus.OK.equals(responseEntity.getStatusCode())) {
+////                    status = responseEntity.getBody();
+////                }
             } catch (Exception e) {
                 logger.warn("vm-reset:" + e.getMessage());
             }

@@ -29,6 +29,6 @@ public class StartRunner implements ApplicationRunner {
         voteProjectTimerQ7.run();
         voteProjectTimerAq.run();
         voteProjectTimerMerge.run();
-//        clientDirectTimerReset.run();
+        clientDirectTimerReset.run();
     }
 }
