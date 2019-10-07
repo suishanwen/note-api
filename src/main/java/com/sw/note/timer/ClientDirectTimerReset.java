@@ -72,7 +72,7 @@ public class ClientDirectTimerReset {
     private void reset() {
         long current = System.currentTimeMillis();
         List<ClientDirect> clientDirectDropedList = ClientDirectCache.selectByUserId("sw").stream()
-                .filter(clientDirect -> current - clientDirect.getUpdateTime().getTime() > 2000 * 1000)
+                .filter(clientDirect -> current - clientDirect.getUpdateTime().getTime() > 60 * 60 * 1000)
                 .collect(Collectors.toList());
         clientDirectDropedList.forEach(clientDirect -> {
             HttpHeaders headers = new HttpHeaders();
@@ -84,10 +84,10 @@ public class ClientDirectTimerReset {
             String status = "0";
             try {
                 logger.warn("重启" + clientDirect.getSortNo() + "号");
-//                ResponseEntity<String> responseEntity = restTemplate.postForEntity("https://tl.bitcoinrobot.cn/reset/", request, String.class);
-////                if (HttpStatus.OK.equals(responseEntity.getStatusCode())) {
-////                    status = responseEntity.getBody();
-////                }
+                ResponseEntity<String> responseEntity = restTemplate.postForEntity("https://tl.bitcoinrobot.cn/reset/", request, String.class);
+                if (HttpStatus.OK.equals(responseEntity.getStatusCode())) {
+                    status = responseEntity.getBody();
+                }
             } catch (Exception e) {
                 logger.warn("vm-reset:" + e.getMessage());
             }
