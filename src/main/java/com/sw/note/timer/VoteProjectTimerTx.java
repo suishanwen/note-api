@@ -50,7 +50,7 @@ public class VoteProjectTimerTx {
                 saveVoteProject(voteProjectList);
             } catch (Exception e) {
                 if(!e.getMessage().contains("SocketTimeoutException")){
-                    clientDirectService.bugReport("server", e.getMessage());
+                    clientDirectService.bugReport("server-tx", e.getMessage());
                 }            }
             running = false;
         };
