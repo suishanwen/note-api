@@ -57,7 +57,7 @@ public class ClientDirectTimerReset {
             }
             running = false;
         };
-        ScheduledExecutorUtil.scheduleAtFixedRate(runnable, 0, 3600);
+        ScheduledExecutorUtil.scheduleAtFixedRate(runnable, 0, 600);
     }
 
     private MultiValueMap<String, String> generateData(String instance) {
@@ -71,9 +71,10 @@ public class ClientDirectTimerReset {
 
     private void reset() {
         long current = System.currentTimeMillis();
+        long timeout = 45 * 60 * 1000;
         List<ClientDirect> clientDirectDropedList = ClientDirectCache.selectByUserId("sw").stream()
                 .filter(clientDirect -> !"无".equals(clientDirect.getProjectName()) &&
-                        (current - clientDirect.getUpdateTime().getTime() > 60 * 60 * 1000))
+                        (current - clientDirect.getUpdateTime().getTime() > timeout))
                 .collect(Collectors.toList());
         clientDirectDropedList.forEach(clientDirect -> {
             HttpHeaders headers = new HttpHeaders();

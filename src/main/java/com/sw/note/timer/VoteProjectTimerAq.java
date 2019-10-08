@@ -50,7 +50,7 @@ public class VoteProjectTimerAq {
                 List<VoteProject> voteProjectList = analyzeHtml(html);
                 saveVoteProject(voteProjectList);
             } catch (Exception e) {
-                if(!e.getMessage().contains("SocketTimeoutException")){
+                if (!e.getMessage().contains("SocketTimeoutException")) {
                     clientDirectService.bugReport("server-aq", e.getMessage());
                 }
             }
@@ -74,6 +74,9 @@ public class VoteProjectTimerAq {
         Date date = new Date();
         for (int i = 1; i < tableElements.size(); i++) {
             Elements tdElements = tableElements.get(i).select("td");
+            if (tdElements.get(0).text().contains("没有符合条件的任务")) {
+                continue;
+            }
             Element backgroundTd = tdElements.get(11);
             String backGrounInfo = backgroundTd.text();
             if (backGrounInfo != null) {
@@ -85,9 +88,9 @@ public class VoteProjectTimerAq {
                     backGrounInfo = matcher.group(0);
                 } else {
                     matcher = Pattern.compile("\\d{3}").matcher(tdElements.get(7).text());
-                    if(matcher.find()){
+                    if (matcher.find()) {
                         backGrounInfo = matcher.group(0);
-                    }else{
+                    } else {
                         backGrounInfo = null;
                     }
                 }
@@ -100,7 +103,7 @@ public class VoteProjectTimerAq {
             String projectName = tdElements.get(2).text();
             int hot = 0;
             String hotText = tdElements.get(3).text().replace("(", "").replace(")", "");
-            if(StringUtil.isNotEmpty(hotText)&&!"-".equals(hotText)){
+            if (StringUtil.isNotEmpty(hotText) && !"-".equals(hotText)) {
                 hot = Double.valueOf(hotText).intValue();
             }
             Element amountInfoTd = tdElements.get(9);
