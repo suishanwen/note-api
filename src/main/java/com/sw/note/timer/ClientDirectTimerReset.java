@@ -72,7 +72,8 @@ public class ClientDirectTimerReset {
     private void reset() {
         long current = System.currentTimeMillis();
         List<ClientDirect> clientDirectDropedList = ClientDirectCache.selectByUserId("sw").stream()
-                .filter(clientDirect -> current - clientDirect.getUpdateTime().getTime() > 60 * 60 * 1000)
+                .filter(clientDirect -> !"无".equals(clientDirect.getProjectName()) &&
+                        (current - clientDirect.getUpdateTime().getTime() > 60 * 60 * 1000))
                 .collect(Collectors.toList());
         clientDirectDropedList.forEach(clientDirect -> {
             HttpHeaders headers = new HttpHeaders();
