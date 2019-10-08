@@ -57,7 +57,7 @@ public class ClientDirectTimerReset {
             }
             running = false;
         };
-        ScheduledExecutorUtil.scheduleAtFixedRate(runnable, 0, 600);
+        ScheduledExecutorUtil.scheduleAtFixedRate(runnable, 0, 1800);
     }
 
     private MultiValueMap<String, String> generateData(String instance) {
