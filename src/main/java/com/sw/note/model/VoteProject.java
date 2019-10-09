@@ -21,7 +21,7 @@ public class VoteProject {
     private Date refreshDate;
     private int drop;
     private int top;
-    private int lock;
+    private int locked;
 
     public VoteProject() {
     }
@@ -169,11 +169,11 @@ public class VoteProject {
         this.top = top;
     }
 
-    public int getLock() {
-        return lock;
+    public int getLocked() {
+        return locked;
     }
 
-    public void setLock(int lock) {
-        this.lock = lock;
+    public void setLocked(int locked) {
+        this.locked = locked;
     }
 }

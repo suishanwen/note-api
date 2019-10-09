@@ -33,12 +33,12 @@ public class VoteProjectController {
     @ApiOperation(value = "查询锁定", notes = "查询锁定")
     @PostMapping(value = "getLock")
     public String getLock() {
-        return VoteProjectCache.getLock();
+        return VoteProjectCache.getLocked();
     }
 
     @ApiOperation(value = "锁定项目", notes = "锁定项目")
     @PostMapping(value = "lock")
     public void lock(@RequestBody String projectName) {
-        VoteProjectCache.setLock(projectName);
+        VoteProjectCache.setLocked(projectName);
     }
 }

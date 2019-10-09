@@ -8,18 +8,18 @@ import java.util.stream.Collectors;
 
 public class VoteProjectCache {
 
-    private static String lock = "";
+    private static String locked = "";
     private static List<VoteProject> list = Lists.newArrayList();
     private static List<VoteProject> listQ7 = Lists.newArrayList();
     private static List<VoteProject> listTx = Lists.newArrayList();
     private static List<VoteProject> listAq = Lists.newArrayList();
 
-    public static String getLock() {
-        return lock;
+    public static String getLocked() {
+        return locked;
     }
 
-    public static void setLock(String lock) {
-        VoteProjectCache.lock = lock;
+    public static void setLocked(String locked) {
+        VoteProjectCache.locked = locked;
     }
 
     public static List<VoteProject> get() {
@@ -39,8 +39,8 @@ public class VoteProjectCache {
             }
             return inExist;
         }).peek(voteProject -> {
-            if (voteProject.getProjectName().equals(lock)) {
-                voteProject.setLock(1);
+            if (voteProject.getProjectName().equals(getLocked())) {
+                voteProject.setLocked(1);
             }
         }).collect(Collectors.toList());
     }
