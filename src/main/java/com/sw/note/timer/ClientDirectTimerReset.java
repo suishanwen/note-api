@@ -1,6 +1,7 @@
 package com.sw.note.timer;
 
 import com.sw.note.cache.ClientDirectCache;
+import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.mapper.VmResetMapper;
 import com.sw.note.model.ClientDirect;
 import com.sw.note.model.VmReset;
@@ -78,7 +79,8 @@ public class ClientDirectTimerReset {
         if (nonCount < clientDirectList.size() / 2) {
             clientDirectList.stream()
                     .filter(clientDirect -> !StringUtils.isEmpty(clientDirect.getInstance()) &&
-                            (current - clientDirect.getUpdateTime().getTime() > timeout))
+                            (current - clientDirect.getUpdateTime().getTime() > timeout) &&
+                            !clientDirect.getProjectName().equals(VoteProjectCache.getLocked()))
                     .collect(Collectors.toList())
                     .forEach(clientDirect -> {
                         VmReset vmReset = vmResetMapper.getLastReset(clientDirect.getUserId(), String.valueOf(clientDirect.getSortNo()));
