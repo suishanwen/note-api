@@ -1,8 +1,6 @@
 package com.sw.note.timer;
 
 import com.sw.note.cache.ClientDirectCache;
-import com.sw.note.config.RestTemplateConfig;
-import com.sw.note.mapper.ClientDirectMapper;
 import com.sw.note.mapper.VmResetMapper;
 import com.sw.note.model.ClientDirect;
 import com.sw.note.model.VmReset;
@@ -20,7 +18,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -72,33 +69,42 @@ public class ClientDirectTimerReset {
     private void reset() {
         long current = System.currentTimeMillis();
         long timeout = 45 * 60 * 1000;
-        List<ClientDirect> clientDirectDropedList = ClientDirectCache.selectByUserId("sw").stream()
-                .filter(clientDirect -> !"无".equals(clientDirect.getProjectName()) &&
-                        (current - clientDirect.getUpdateTime().getTime() > timeout))
-                .collect(Collectors.toList());
-        clientDirectDropedList.forEach(clientDirect -> {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-
-            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(
-                    generateData(clientDirect.getInstance()), headers);
-            //发送请求，设置请求返回数据格式为String
-            String status = "0";
-            try {
-                logger.warn("重启" + clientDirect.getSortNo() + "号");
-                ResponseEntity<String> responseEntity = restTemplate.postForEntity("https://tl.bitcoinrobot.cn/reset/", request, String.class);
-                if (HttpStatus.OK.equals(responseEntity.getStatusCode())) {
-                    status = responseEntity.getBody();
-                }
-            } catch (Exception e) {
-                logger.warn("vm-reset:" + e.getMessage());
-            }
-            try {
-                vmResetMapper.insert(new VmReset(String.valueOf(clientDirect.getSortNo()), status, new Date()));
-            } catch (Exception e) {
-                logger.warn("vm-reset-insert:" + e.getMessage());
-            }
-        });
+        long resetInterval = 2 * 60 * 60 * 1000;
+        List<ClientDirect> clientDirectList = ClientDirectCache.selectByUserId("root");
+        long nonCount = clientDirectList.stream()
+                .filter(clientDirect -> "无".equals(clientDirect.getProjectName()))
+                .count();
+        if (nonCount < clientDirectList.size() / 2) {
+            clientDirectList.stream()
+                    .filter(clientDirect ->
+                            (current - clientDirect.getUpdateTime().getTime() > timeout))
+                    .collect(Collectors.toList())
+                    .forEach(clientDirect -> {
+                        VmReset vmReset = vmResetMapper.getLastReset(clientDirect.getUserId(), String.valueOf(clientDirect.getSortNo()));
+                        if (vmReset == null || current - vmReset.getDate().getTime() > resetInterval) {
+                            HttpHeaders headers = new HttpHeaders();
+                            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+                            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(
+                                    generateData(clientDirect.getInstance()), headers);
+                            //发送请求，设置请求返回数据格式为String
+                            String status = "0";
+                            try {
+                                logger.warn(clientDirect.getUserId() + ": 重启" + clientDirect.getSortNo() + "号");
+                                ResponseEntity<String> responseEntity = restTemplate.postForEntity("https://tl.bitcoinrobot.cn/reset/", request, String.class);
+                                if (HttpStatus.OK.equals(responseEntity.getStatusCode())) {
+                                    status = responseEntity.getBody();
+                                }
+                            } catch (Exception e) {
+                                logger.warn("vm-reset:" + e.getMessage());
+                            }
+                            try {
+                                vmResetMapper.insert(new VmReset(clientDirect.getUserId(), String.valueOf(clientDirect.getSortNo()), status, new Date()));
+                            } catch (Exception e) {
+                                logger.warn("vm-reset-insert:" + e.getMessage());
+                            }
+                        }
+                    });
+        }
     }
 }
 

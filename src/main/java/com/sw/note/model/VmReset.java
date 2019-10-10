@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class VmReset {
 
+    private String user;
     private String sortNo;
     private String status;
     private Date date;
@@ -11,11 +12,19 @@ public class VmReset {
     public VmReset() {
     }
 
-
-    public VmReset(String sortNo, String status, Date date) {
+    public VmReset(String user, String sortNo, String status, Date date) {
+        this.user = user;
         this.sortNo = sortNo;
         this.status = status;
         this.date = date;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getSortNo() {
