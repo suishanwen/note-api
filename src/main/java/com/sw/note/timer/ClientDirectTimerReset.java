@@ -14,6 +14,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
@@ -76,7 +77,7 @@ public class ClientDirectTimerReset {
                 .count();
         if (nonCount < clientDirectList.size() / 2) {
             clientDirectList.stream()
-                    .filter(clientDirect ->
+                    .filter(clientDirect -> !StringUtils.isEmpty(clientDirect.getInstance()) &&
                             (current - clientDirect.getUpdateTime().getTime() > timeout))
                     .collect(Collectors.toList())
                     .forEach(clientDirect -> {
