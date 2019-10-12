@@ -84,8 +84,9 @@ public class ClientDirectTimerReset {
             clientDirectList.stream()
                     .filter(clientDirect -> !StringUtils.isEmpty(clientDirect.getInstance()) &&
                             (current - clientDirect.getUpdateTime().getTime() > timeout) &&
-                            !StringUtils.isEmpty(clientDirect.getProjectName()) &&
-                            !clientDirect.getProjectName().contains(VoteProjectCache.getLocked()))
+                            (StringUtils.isEmpty(VoteProjectCache.getLocked()) ||
+                                    (!StringUtils.isEmpty(clientDirect.getProjectName()) &&
+                                            !clientDirect.getProjectName().contains(VoteProjectCache.getLocked()))))
                     .collect(Collectors.toList())
                     .forEach(clientDirect -> {
                         VmReset vmReset = vmResetMapper.getLastReset(clientDirect.getUserId(), String.valueOf(clientDirect.getSortNo()));
