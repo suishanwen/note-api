@@ -1,9 +1,12 @@
 package com.sw.note.model;
 
+import javax.persistence.Id;
 import java.util.Date;
 
 public class VmReset {
 
+    @Id
+    private String id;
     private String user;
     private String sortNo;
     private String status;
@@ -17,6 +20,14 @@ public class VmReset {
         this.sortNo = sortNo;
         this.status = status;
         this.date = date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUser() {
