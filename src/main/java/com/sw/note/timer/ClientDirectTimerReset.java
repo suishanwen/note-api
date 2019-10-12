@@ -40,6 +40,10 @@ public class ClientDirectTimerReset {
     public String username;
     @Value("${vm.password}")
     public String password;
+    @Value("${vm.username1}")
+    public String username1;
+    @Value("${vm.password1}")
+    public String password1;
 
     private boolean running = false;
 
@@ -59,11 +63,11 @@ public class ClientDirectTimerReset {
         ScheduledExecutorUtil.scheduleAtFixedRate(runnable, 0, 600);
     }
 
-    private MultiValueMap<String, String> generateData(String instance) {
+    private MultiValueMap<String, String> generateData(String user, String instance) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.add("host", host);
-        map.add("username", username);
-        map.add("password", password);
+        map.add("username", "1".equals(user) ? username1 : username);
+        map.add("password", "1".equals(user) ? password1 : password);
         map.add("instance", instance);
         return map;
     }
@@ -80,8 +84,8 @@ public class ClientDirectTimerReset {
             clientDirectList.stream()
                     .filter(clientDirect -> !StringUtils.isEmpty(clientDirect.getInstance()) &&
                             (current - clientDirect.getUpdateTime().getTime() > timeout) &&
-                            (StringUtils.isEmpty(VoteProjectCache.getLocked()) ||
-                                    !clientDirect.getProjectName().equals(VoteProjectCache.getLocked())))
+                            !StringUtils.isEmpty(clientDirect.getProjectName()) &&
+                            !clientDirect.getProjectName().contains(VoteProjectCache.getLocked()))
                     .collect(Collectors.toList())
                     .forEach(clientDirect -> {
                         VmReset vmReset = vmResetMapper.getLastReset(clientDirect.getUserId(), String.valueOf(clientDirect.getSortNo()));
@@ -89,7 +93,7 @@ public class ClientDirectTimerReset {
                             HttpHeaders headers = new HttpHeaders();
                             headers.setContentType(MediaType.MULTIPART_FORM_DATA);
                             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(
-                                    generateData(clientDirect.getInstance()), headers);
+                                    generateData(clientDirect.getUserId(), clientDirect.getInstance()), headers);
                             //发送请求，设置请求返回数据格式为String
                             String status = "0";
                             try {
