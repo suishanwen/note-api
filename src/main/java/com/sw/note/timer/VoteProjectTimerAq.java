@@ -50,7 +50,9 @@ public class VoteProjectTimerAq {
                 List<VoteProject> voteProjectList = analyzeHtml(html);
                 saveVoteProject(voteProjectList);
             } catch (Exception e) {
-                if (!e.getMessage().contains("SocketTimeoutException")) {
+                if (!e.getMessage().contains("SocketTimeoutException")
+                        && !e.getMessage().contains("Connection refused")
+                        && !e.getMessage().contains("Connection reset")) {
                     clientDirectService.bugReport("server-aq", e.getMessage());
                 }
             }

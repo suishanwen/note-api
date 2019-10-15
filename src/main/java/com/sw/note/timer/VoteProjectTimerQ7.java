@@ -49,7 +49,9 @@ public class VoteProjectTimerQ7 {
                 List<VoteProject> voteProjectList = analyzeHtml(html);
                 saveVoteProject(voteProjectList);
             } catch (Exception e) {
-                if(!e.getMessage().contains("SocketTimeoutException")){
+                if (!e.getMessage().contains("SocketTimeoutException")
+                        && !e.getMessage().contains("Connection refused")
+                        && !e.getMessage().contains("Connection reset")) {
                     clientDirectService.bugReport("server-q7", e.getMessage());
                 }
             }
@@ -86,9 +88,9 @@ public class VoteProjectTimerQ7 {
                     backGrounInfo = matcher.group(0);
                 } else {
                     matcher = Pattern.compile("\\d{3}").matcher(backGrounInfo);
-                    if(matcher.find()){
+                    if (matcher.find()) {
                         backGrounInfo = matcher.group(0);
-                    }else{
+                    } else {
                         backGrounInfo = null;
                     }
                 }
