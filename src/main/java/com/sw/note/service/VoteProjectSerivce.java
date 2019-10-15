@@ -38,6 +38,12 @@ public class VoteProjectSerivce {
                 backgroundData = new BackgroundData(idList, System.currentTimeMillis());
                 BackGroundCache.set(url, backgroundData);
             }
+            if (html != null && url.contains("120.25.13.127")) {
+                Elements tableElements = Jsoup.parse(html).select("tr[bgcolor='White'],tr[bgcolor='Azure']").select("td:eq(0)").select("font[color='Blue']");
+                idList = tableElements.stream().map(Element::text).collect(Collectors.toList());
+                backgroundData = new BackgroundData(idList, System.currentTimeMillis());
+                BackGroundCache.set(url, backgroundData);
+            }
         }
         if (backgroundData != null) {
             idList = backgroundData.getOnlineIdList();
