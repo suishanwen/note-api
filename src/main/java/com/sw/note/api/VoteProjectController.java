@@ -1,14 +1,18 @@
 package com.sw.note.api;
 
+import com.sw.note.beans.BackgroundData;
+import com.sw.note.cache.BackGroundCache;
 import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.model.VoteProject;
 import com.sw.note.service.VoteProjectSerivce;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Api(value = "投票数据", description = "投票数据", tags = "8")
 @RestController
@@ -39,5 +43,21 @@ public class VoteProjectController {
     @PostMapping(value = "lock")
     public void lock(@RequestParam("projectName") String projectName) {
         VoteProjectCache.setLocked(projectName);
+    }
+
+    @ApiOperation(value = "所有后台信息", notes = "所有后台信息")
+    @PostMapping(value = "background")
+    public Map<String, BackgroundData> background() {
+        return BackGroundCache.all();
+    }
+
+    @ApiOperation(value = "交换id", notes = "交换id")
+    @PostMapping(value = "borrow")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "user", paramType = "query", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "url", paramType = "query", required = true, dataType = "String"),
+    })
+    public String borrow(@RequestParam("user") String user, @RequestParam("url") String url) {
+        return voteProjectSerivce.borrow(user, url);
     }
 }
