@@ -53,11 +53,8 @@ public class VoteProjectController {
 
     @ApiOperation(value = "交换id", notes = "交换id")
     @PostMapping(value = "borrow")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", paramType = "query", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "url", paramType = "query", required = true, dataType = "String"),
-    })
-    public String borrow(@RequestParam("user") String user, @RequestParam("url") String url) {
+    @ApiImplicitParam(name = "user", paramType = "query", required = true, dataType = "String")
+    public String borrow(@RequestParam("user") String user, @RequestBody String url) {
         return voteProjectSerivce.borrow(user, url);
     }
 }
