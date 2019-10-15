@@ -1,10 +1,10 @@
 package com.sw.note.service;
 
+import com.google.common.collect.Lists;
 import com.sw.note.beans.BackgroundData;
 import com.sw.note.cache.BackGroundCache;
 import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.model.VoteProject;
-import org.assertj.core.util.Lists;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

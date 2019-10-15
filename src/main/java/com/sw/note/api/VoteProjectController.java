@@ -7,7 +7,6 @@ import com.sw.note.model.VoteProject;
 import com.sw.note.service.VoteProjectSerivce;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
