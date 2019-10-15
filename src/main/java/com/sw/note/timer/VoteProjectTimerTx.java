@@ -100,7 +100,7 @@ public class VoteProjectTimerTx {
             if (!tdElements.get(3).text().contains("新任务") && !tdElements.get(3).text().contains("未知")) {
                 hot = Double.valueOf(tdElements.get(3).text().split("/")[0].substring(1).trim()).intValue();
             }
-            String quantityInfo = tdElements.get(7).attr("title").split(String.format("%d-%d", month, day))[0];
+            String quantityInfo = tdElements.get(7).attr("title").split(String.format("%d-", month))[0];
             long finishQuantity = 0;
             long totalRequire = 0;
             if (quantityInfo.contains("/")) {
