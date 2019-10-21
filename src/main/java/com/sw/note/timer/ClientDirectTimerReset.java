@@ -1,5 +1,6 @@
 package com.sw.note.timer;
 
+import com.sw.note.cache.BackGroundCache;
 import com.sw.note.cache.ClientDirectCache;
 import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.mapper.VmResetMapper;
@@ -55,6 +56,7 @@ public class ClientDirectTimerReset {
             running = true;
             try {
                 reset();
+                BackGroundCache.clear();
             } catch (Exception e) {
                 clientDirectService.bugReport("server-reset", e.getMessage());
             }
