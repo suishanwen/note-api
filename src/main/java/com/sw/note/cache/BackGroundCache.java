@@ -23,7 +23,7 @@ public class BackGroundCache {
     public static void clear() {
         long nowMills = System.currentTimeMillis();
         backgroundDataMap.forEach((key, value) -> {
-            if (nowMills - value.getMills() > 5 * 60 * 1000) {
+            if (nowMills - value.getMills() > 60 * 60 * 1000) {
                 backgroundDataMap.remove(key);
             }
         });
