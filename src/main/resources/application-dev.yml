@@ -38,4 +38,10 @@ mybatis:
 vm:
   host: xxx
   username: xxx
-  passworm: xxx
+  password: xxx
+  username1: xxx
+  password1: xxx
+
+telegram:
+  token: xxx
+  chatId: xxx
