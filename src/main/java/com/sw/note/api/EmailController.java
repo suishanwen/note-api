@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import tk.mybatis.mapper.util.StringUtil;
 
-@Api(value = "邮件", description = "邮件", tags = "6")
+@Api(value = "速递", description = "速递", tags = "6")
 @RestController
 @RequestMapping(path = "/email")
 public class EmailController {
@@ -45,7 +45,7 @@ public class EmailController {
     }
 
     @ApiOperation(value = "发送", notes = "发送")
-    @GetMapping("/telegram")
+    @PostMapping("/telegram")
     public boolean send(@RequestBody String msg) {
         String url = String.format("https://api.telegram.org/bot%s/sendMessage?chat_id=%s&text=%s", token, chatId, msg);
         String resp = restTemplate.getForObject(url, String.class);
