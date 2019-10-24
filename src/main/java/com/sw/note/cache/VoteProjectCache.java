@@ -34,7 +34,7 @@ public class VoteProjectCache {
         List<String> keyList = Lists.newArrayList();
         list = listTmp.stream().filter(voteProject -> {
             boolean inExist = !keyList.contains(voteProject.getProjectName());
-            if (inExist) {
+            if (inExist && voteProject.remains()) {
                 keyList.add(voteProject.getProjectName());
             }
             return inExist;

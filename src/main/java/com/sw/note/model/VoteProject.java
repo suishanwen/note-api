@@ -41,6 +41,14 @@ public class VoteProject {
         this.refreshDate = refreshDate;
     }
 
+    public boolean remains() {
+        if (remains > 0) {
+            return this.remains * this.price >= 50;
+        } else {
+            return this.totalRequire <= 0;
+        }
+    }
+
     public String getProjectName() {
         return projectName;
     }
