@@ -76,4 +76,11 @@ public class ClientDirectCache {
                     clientDirect.set$synchronized(false);
                 });
     }
+
+    public static double income(String userId) {
+        String superUser = "root";
+        return clientDirectMap.values().stream().filter(clientDirect ->
+                superUser.equals(userId) || userId.equals(clientDirect.getUserId())
+        ).mapToDouble(clientDirect -> Double.parseDouble(clientDirect.getReward())).sum();
+    }
 }

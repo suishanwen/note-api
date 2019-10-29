@@ -2,6 +2,7 @@ package com.sw.note.api;
 
 import com.sw.note.beans.BackgroundData;
 import com.sw.note.cache.BackGroundCache;
+import com.sw.note.cache.ClientDirectCache;
 import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.model.VoteProject;
 import com.sw.note.service.VoteProjectSerivce;
@@ -55,5 +56,11 @@ public class VoteProjectController {
     @ApiImplicitParam(name = "user", paramType = "query", required = true, dataType = "String")
     public String borrow(@RequestParam("user") String user, @RequestBody String url) {
         return voteProjectSerivce.borrow(user, url);
+    }
+
+    @ApiOperation(value = "查询用户收入", notes = "查询用户收入")
+    @PostMapping(value = "income")
+    public double income(@RequestBody String user) {
+        return ClientDirectCache.income(user);
     }
 }
