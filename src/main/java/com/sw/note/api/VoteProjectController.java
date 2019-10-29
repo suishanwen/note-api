@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ public class VoteProjectController {
     @ApiOperation(value = "查询用户收入", notes = "查询用户收入")
     @PostMapping(value = "income")
     public double income(@RequestBody String user) {
-        return ClientDirectCache.income(user);
+        BigDecimal bd = new BigDecimal(String.valueOf(ClientDirectCache.income(user)));
+        return bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 }
