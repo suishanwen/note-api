@@ -67,7 +67,9 @@ public class FileService {
                 if (data.size() == day) {
                     todayMap.put(target, todayMap.getOrDefault(target, 0D) + data.get(data.size() - 1));
                 }
-                monthMap.put(target, monthMap.getOrDefault(target, 0D) + data.stream().mapToDouble(x -> x).sum());
+                if (data.size() <= day) {
+                    monthMap.put(target, monthMap.getOrDefault(target, 0D) + data.stream().mapToDouble(x -> x).sum());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
