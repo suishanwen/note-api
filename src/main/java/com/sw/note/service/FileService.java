@@ -57,7 +57,7 @@ public class FileService {
         Map<String, Double> todayMap = Maps.newHashMap();
         Map<String, Double> monthMap = Maps.newHashMap();
         try {
-            ini.load(new URL("https://bitcoinrobot.site/balance/huobi/config.ini"));
+            ini.load(new File("/home/balance/huobi/config.ini"));
             String symbols = ini.get("trade").get("symbol");
             List<String> symbolList = JSON.parseArray(symbols, String.class);
             for (String symbol : symbolList) {
@@ -67,7 +67,7 @@ public class FileService {
                 if (data.size() == day) {
                     todayMap.put(target, todayMap.getOrDefault(target, 0D) + data.get(data.size() - 1));
                 }
-                if (data.size() <= day + 20) {
+                if (data.size() <= day) {
                     monthMap.put(target, monthMap.getOrDefault(target, 0D) + data.stream().mapToDouble(x -> x).sum());
                 }
             }
