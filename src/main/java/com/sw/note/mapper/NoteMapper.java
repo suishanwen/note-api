@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Mapper
@@ -20,7 +19,10 @@ public interface NoteMapper extends tk.mybatis.mapper.common.Mapper<Note> {
             "    poster,\n" +
             "    summary,\n" +
             "    tag,\n" +
-            "    post_time\n" +
+            "    CASE\n" +
+            "        WHEN edit_time IS NULL THEN post_time\n" +
+            "        ELSE edit_time\n" +
+            "    END post_time\n" +
             "FROM\n" +
             "    note\n" +
             "ORDER BY\n" +
