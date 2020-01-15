@@ -17,8 +17,10 @@ public interface NoteMapper extends tk.mybatis.mapper.common.Mapper<Note> {
             "SELECT\n" +
             "    id,\n" +
             "    title,\n" +
-            "    post_time postTime,\n" +
-            "    edit_time editTime\n" +
+            "    poster,\n" +
+            "    summary,\n" +
+            "    tag,\n" +
+            "    post_time\n" +
             "FROM\n" +
             "    note\n" +
             "ORDER BY\n" +
@@ -28,7 +30,7 @@ public interface NoteMapper extends tk.mybatis.mapper.common.Mapper<Note> {
             "    END\n" +
             "DESC\n" +
             "</script>")
-    List<Map> getAll();
+    List<Note> getAll();
 
     @Select("<script> \n" +
             "SELECT\n" +

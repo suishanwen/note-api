@@ -25,7 +25,7 @@ public class NoteController {
 
     @ApiOperation(value = "获取笔记列表", notes = "获取笔记列表")
     @GetMapping("")
-    public List<Map> getAll() {
+    public List<Note> getAll() {
         return noteSerivce.getAllPost();
     }
 

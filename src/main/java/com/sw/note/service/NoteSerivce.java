@@ -18,7 +18,7 @@ public class NoteSerivce {
     @Autowired
     NoteMapper noteMapper;
 
-    public List<Map> getAllPost() {
+    public List<Note> getAllPost() {
         return noteMapper.getAll();
     }
 
