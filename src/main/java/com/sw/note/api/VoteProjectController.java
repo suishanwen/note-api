@@ -2,6 +2,7 @@ package com.sw.note.api;
 
 import com.sw.note.beans.BackgroundData;
 import com.sw.note.cache.BackGroundCache;
+import com.sw.note.cache.ClientDirectCache;
 import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.model.VoteProject;
 import com.sw.note.service.VoteProjectSerivce;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -55,5 +57,12 @@ public class VoteProjectController {
     @ApiImplicitParam(name = "user", paramType = "query", required = true, dataType = "String")
     public String borrow(@RequestParam("user") String user, @RequestBody String url) {
         return voteProjectSerivce.borrow(user, url);
+    }
+
+    @ApiOperation(value = "查询用户收入", notes = "查询用户收入")
+    @PostMapping(value = "income")
+    public double income(@RequestBody String user) {
+        BigDecimal bd = new BigDecimal(String.valueOf(ClientDirectCache.income(user)));
+        return bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 }
