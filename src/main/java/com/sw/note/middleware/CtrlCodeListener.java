@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 import javax.websocket.OnMessage;
 
-@Component
-@RabbitListener(queues = "ctrl")
+//@Component
+//@RabbitListener(queues = "ctrl")
 public class CtrlCodeListener {
 
     @RabbitHandler

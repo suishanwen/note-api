@@ -14,8 +14,8 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-@Component
-@ServerEndpoint(value = "/websocket/{identity}")
+//@Component
+//@ServerEndpoint(value = "/websocket/{identity}")
 public class CtrlDeliverSocket {
     private static int onlineCount = 0;
     private static Logger logger = LoggerFactory.getLogger(CtrlDeliverSocket.class);

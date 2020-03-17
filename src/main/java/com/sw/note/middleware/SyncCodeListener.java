@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import javax.websocket.OnMessage;
 
-@Component
-@RabbitListener(queues = "sync")
+//@Component
+//@RabbitListener(queues = "sync")
 public class SyncCodeListener {
 
     @Autowired
