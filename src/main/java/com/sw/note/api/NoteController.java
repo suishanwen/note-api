@@ -7,6 +7,7 @@ import com.sw.note.service.NoteSerivce;
 import com.sw.note.util.NoteUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,8 @@ import java.util.List;
 @RequestMapping(path = "/note")
 public class NoteController {
 
+    @Value("${note.ip}")
+    public String ipTrust;
     @Autowired
     NoteSerivce noteSerivce;
     @Autowired
@@ -53,7 +56,7 @@ public class NoteController {
     @PostMapping("/edit")
     public Note edit(@ApiParam(value = "Note", required = true) @RequestBody Note note) {
         String ip = NoteUtil.getIpAddr(request);
-        if (ip == null || (!ip.equals(note.getIp()) && !("23.105.199.58").equals(ip))) {
+        if (ip == null || (!ip.equals(note.getIp()) && !(ipTrust).equals(ip))) {
             throw new BusinessException("当前IP没有编辑权限！");
         }
         return noteSerivce.edit(note);

@@ -45,3 +45,5 @@ vm:
 telegram:
   token: xxx
   chatId: xxx
+note:
+  ip: xx
