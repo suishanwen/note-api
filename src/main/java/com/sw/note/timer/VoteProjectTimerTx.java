@@ -4,14 +4,11 @@ import com.google.common.collect.Lists;
 import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.model.entity.VoteProject;
 import com.sw.note.service.ClientDirectService;
-import com.sw.note.service.VoteProjectSerivce;
 import com.sw.note.util.ScheduledExecutorUtil;
 import org.apache.logging.log4j.util.Strings;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,22 +17,17 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class VoteProjectTimerTx {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private VoteProjectSerivce voteProjectSerivce;
     @Autowired
     private ClientDirectService clientDirectService;
     @Autowired
     RestTemplate restTemplate;
-
-    private String dataSource = "http://2019.txtpw.com/rwlb8.asp";
 
     private boolean running = false;
 
@@ -47,7 +39,7 @@ public class VoteProjectTimerTx {
             running = true;
             try {
                 String html = getHtml();
-                List<VoteProject> voteProjectList = analyzeHtml(html);
+                LinkedList<VoteProject> voteProjectList = analyzeHtml(html);
                 saveVoteProject(voteProjectList);
             } catch (Exception e) {
                 if (!e.getMessage().contains("SocketTimeoutException")
@@ -63,18 +55,18 @@ public class VoteProjectTimerTx {
 
 
     private String getHtml() {
-        String url = dataSource + "?t=" + Math.random();
+        String dataApi = "http://2019.txtpw.com/rwlb8.asp";
+        String url = dataApi + "?t=" + Math.random();
         Charset charset = Charset.forName("gb2312");
         url = new String(url.getBytes(StandardCharsets.UTF_8), charset);
         return restTemplate.getForObject(url, String.class);
     }
 
 
-    private List<VoteProject> analyzeHtml(String html) {
+    private LinkedList<VoteProject> analyzeHtml(String html) {
         Calendar cale = Calendar.getInstance();
         int month = cale.get(Calendar.MONTH) + 1;
-        int day = cale.get(Calendar.DATE);
-        List<VoteProject> voteProjectList = Lists.newArrayList();
+        LinkedList<VoteProject> voteProjectList = Lists.newLinkedList();
         Elements tableElements = Jsoup.parse(html).select("table[style=\"border-left:1px solid #009cec; border-right:1px solid #009cec; background-color:#FFF\"]").select("tr");
         Date date = new Date();
         for (Element tableElement : tableElements) {
@@ -108,11 +100,11 @@ public class VoteProjectTimerTx {
             if (quantityInfo.contains("/")) {
                 try {
                     finishQuantity = Long.parseLong(quantityInfo.split("/")[0]);
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
                 try {
                     totalRequire = Long.parseLong(quantityInfo.split("/")[1]);
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
             long remains = Long.parseLong(tdElements.get(7).text());
@@ -122,7 +114,7 @@ public class VoteProjectTimerTx {
         return voteProjectList;
     }
 
-    private void saveVoteProject(List<VoteProject> voteProjectList) {
+    private void saveVoteProject(LinkedList<VoteProject> voteProjectList) {
         VoteProjectCache.setListTx(voteProjectList);
     }
 }

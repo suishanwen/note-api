@@ -5,8 +5,6 @@ import com.sw.note.mapper.ClientDirectMapper;
 import com.sw.note.model.entity.ClientDirect;
 import com.sw.note.service.ClientDirectService;
 import com.sw.note.util.ScheduledExecutorUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,6 @@ import java.util.List;
 
 @Service
 public class ClientDirectTimerSync {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ClientDirectService clientDirectService;

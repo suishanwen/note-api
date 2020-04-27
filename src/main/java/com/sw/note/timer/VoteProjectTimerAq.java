@@ -4,14 +4,11 @@ import com.google.common.collect.Lists;
 import com.sw.note.cache.VoteProjectCache;
 import com.sw.note.model.entity.VoteProject;
 import com.sw.note.service.ClientDirectService;
-import com.sw.note.service.VoteProjectSerivce;
 import com.sw.note.util.ScheduledExecutorUtil;
 import org.apache.logging.log4j.util.Strings;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,22 +17,17 @@ import tk.mybatis.mapper.util.StringUtil;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class VoteProjectTimerAq {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private VoteProjectSerivce voteProjectSerivce;
     @Autowired
     private ClientDirectService clientDirectService;
     @Autowired
     RestTemplate restTemplate;
-
-    private String dataSource = "http://www.mianfei99.cn/task.aspx";
 
     private boolean running = false;
 
@@ -47,7 +39,7 @@ public class VoteProjectTimerAq {
             running = true;
             try {
                 String html = getHtml();
-                List<VoteProject> voteProjectList = analyzeHtml(html);
+                LinkedList<VoteProject> voteProjectList = analyzeHtml(html);
                 saveVoteProject(voteProjectList);
             } catch (Exception e) {
                 if (!e.getMessage().contains("SocketTimeoutException")
@@ -63,15 +55,16 @@ public class VoteProjectTimerAq {
 
 
     private String getHtml() {
-        String url = dataSource + "?t=" + Math.random();
+        String dataApi = "http://www.mianfei99.cn/task.aspx";
+        String url = dataApi + "?t=" + Math.random();
         Charset charset = Charset.forName("gb2312");
         url = new String(url.getBytes(StandardCharsets.UTF_8), charset);
         return restTemplate.getForObject(url, String.class);
     }
 
 
-    private List<VoteProject> analyzeHtml(String html) {
-        List<VoteProject> voteProjectList = Lists.newArrayList();
+    private LinkedList<VoteProject> analyzeHtml(String html) {
+        LinkedList<VoteProject> voteProjectList = Lists.newLinkedList();
         Elements tableElements = Jsoup.parse(html).select("table[id='MainContent_GridView2']").select("tr");
         Date date = new Date();
         for (int i = 1; i < tableElements.size(); i++) {
@@ -119,7 +112,7 @@ public class VoteProjectTimerAq {
         return voteProjectList;
     }
 
-    private void saveVoteProject(List<VoteProject> voteProjectList) {
+    private void saveVoteProject(LinkedList<VoteProject> voteProjectList) {
         VoteProjectCache.setListAq(voteProjectList);
     }
 

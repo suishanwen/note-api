@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClientDirectTimerReset {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ClientDirectService clientDirectService;

@@ -3,16 +3,16 @@ package com.sw.note.cache;
 import com.google.common.collect.Lists;
 import com.sw.note.model.entity.VoteProject;
 
-import java.util.List;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 public class VoteProjectCache {
 
     private static String locked = "";
-    private static List<VoteProject> list = Lists.newArrayList();
-    private static List<VoteProject> listQ7 = Lists.newArrayList();
-    private static List<VoteProject> listTx = Lists.newArrayList();
-    private static List<VoteProject> listAq = Lists.newArrayList();
+    private static LinkedList<VoteProject> list = Lists.newLinkedList();
+    private static LinkedList<VoteProject> listQ7 = Lists.newLinkedList();
+    private static LinkedList<VoteProject> listTx = Lists.newLinkedList();
+    private static LinkedList<VoteProject> listAq = Lists.newLinkedList();
 
     public static String getLocked() {
         return locked;
@@ -22,16 +22,16 @@ public class VoteProjectCache {
         VoteProjectCache.locked = locked;
     }
 
-    public static List<VoteProject> get() {
+    public static LinkedList<VoteProject> get() {
         return list;
     }
 
     public static void merge() {
-        List<VoteProject> listTmp = Lists.newArrayList();
+        LinkedList<VoteProject> listTmp = Lists.newLinkedList();
         listTmp.addAll(listTx);
         listTmp.addAll(listQ7);
         listTmp.addAll(listAq);
-        List<String> keyList = Lists.newArrayList();
+        LinkedList<String> keyList = Lists.newLinkedList();
         list = listTmp.stream().filter(voteProject -> {
             boolean inExist = !keyList.contains(voteProject.getProjectName()) && voteProject.remains();
             if (inExist) {
@@ -42,18 +42,18 @@ public class VoteProjectCache {
             if (voteProject.getProjectName().equals(getLocked())) {
                 voteProject.setLocked(1);
             }
-        }).collect(Collectors.toList());
+        }).collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public static void setListQ7(List<VoteProject> listQ7) {
+    public static void setListQ7(LinkedList<VoteProject> listQ7) {
         VoteProjectCache.listQ7 = listQ7;
     }
 
-    public static void setListTx(List<VoteProject> listTx) {
+    public static void setListTx(LinkedList<VoteProject> listTx) {
         VoteProjectCache.listTx = listTx;
     }
 
-    public static void setListAq(List<VoteProject> listAq) {
+    public static void setListAq(LinkedList<VoteProject> listAq) {
         VoteProjectCache.listAq = listAq;
     }
 }

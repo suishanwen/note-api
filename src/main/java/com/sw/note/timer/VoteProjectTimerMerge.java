@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class VoteProjectTimerMerge {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private boolean running = false;
 
