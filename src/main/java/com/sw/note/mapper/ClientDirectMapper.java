@@ -1,6 +1,6 @@
 package com.sw.note.mapper;
 
-import com.sw.note.model.ClientDirect;
+import com.sw.note.model.entity.ClientDirect;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

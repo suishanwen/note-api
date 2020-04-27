@@ -1,4 +1,4 @@
-package com.sw.note.beans;
+package com.sw.note.model;
 
 
 public class BusinessException extends RuntimeException {

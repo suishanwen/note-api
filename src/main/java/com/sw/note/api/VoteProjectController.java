@@ -1,10 +1,10 @@
 package com.sw.note.api;
 
-import com.sw.note.beans.BackgroundData;
+import com.sw.note.model.BackgroundData;
 import com.sw.note.cache.BackGroundCache;
 import com.sw.note.cache.ClientDirectCache;
 import com.sw.note.cache.VoteProjectCache;
-import com.sw.note.model.VoteProject;
+import com.sw.note.model.entity.VoteProject;
 import com.sw.note.service.VoteProjectSerivce;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

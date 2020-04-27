@@ -2,7 +2,7 @@ package com.sw.note.timer;
 
 import com.sw.note.cache.ClientDirectCache;
 import com.sw.note.mapper.ClientDirectMapper;
-import com.sw.note.model.ClientDirect;
+import com.sw.note.model.entity.ClientDirect;
 import com.sw.note.service.ClientDirectService;
 import com.sw.note.util.ScheduledExecutorUtil;
 import org.slf4j.Logger;

@@ -1,10 +1,9 @@
 package com.sw.note.mapper;
 
-import com.sw.note.model.ClientData;
+import com.sw.note.model.entity.ClientData;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 
 

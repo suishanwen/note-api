@@ -1,8 +1,8 @@
 package com.sw.note.service;
 
-import com.sw.note.beans.BusinessException;
+import com.sw.note.model.BusinessException;
 import com.sw.note.mapper.CommentMapper;
-import com.sw.note.model.Comment;
+import com.sw.note.model.entity.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

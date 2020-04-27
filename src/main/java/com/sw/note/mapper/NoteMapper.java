@@ -1,6 +1,6 @@
 package com.sw.note.mapper;
 
-import com.sw.note.model.Note;
+import com.sw.note.model.entity.Note;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

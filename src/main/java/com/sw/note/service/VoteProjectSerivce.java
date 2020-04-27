@@ -1,10 +1,10 @@
 package com.sw.note.service;
 
 import com.google.common.collect.Lists;
-import com.sw.note.beans.BackgroundData;
+import com.sw.note.model.BackgroundData;
 import com.sw.note.cache.BackGroundCache;
 import com.sw.note.cache.VoteProjectCache;
-import com.sw.note.model.VoteProject;
+import com.sw.note.model.entity.VoteProject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

@@ -1,10 +1,8 @@
 package com.sw.note.mapper;
 
-import com.sw.note.model.BugReport;
+import com.sw.note.model.entity.BugReport;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @Mapper

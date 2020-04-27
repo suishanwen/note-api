@@ -1,8 +1,8 @@
 package com.sw.note.api;
 
-import com.sw.note.beans.BusinessException;
-import com.sw.note.beans.Enquiry;
-import com.sw.note.model.Note;
+import com.sw.note.model.BusinessException;
+import com.sw.note.model.Enquiry;
+import com.sw.note.model.entity.Note;
 import com.sw.note.service.NoteSerivce;
 import com.sw.note.util.NoteUtil;
 import io.swagger.annotations.*;

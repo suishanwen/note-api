@@ -1,7 +1,7 @@
 package com.sw.note.cache;
 
 import com.google.common.collect.Maps;
-import com.sw.note.beans.BackgroundData;
+import com.sw.note.model.BackgroundData;
 
 import java.util.Map;
 

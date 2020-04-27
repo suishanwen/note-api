@@ -1,4 +1,4 @@
-package com.sw.note.model;
+package com.sw.note.model.entity;
 
 import javax.persistence.Id;
 import javax.persistence.Transient;

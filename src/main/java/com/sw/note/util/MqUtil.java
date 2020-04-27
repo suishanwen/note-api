@@ -2,8 +2,8 @@ package com.sw.note.util;
 
 import com.alibaba.fastjson.JSON;
 import com.rabbitmq.client.Channel;
-import com.sw.note.beans.BusinessException;
-import com.sw.note.beans.CtrlCode;
+import com.sw.note.model.BusinessException;
+import com.sw.note.model.CtrlCode;
 import com.sw.note.middleware.CtrlDeliverSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

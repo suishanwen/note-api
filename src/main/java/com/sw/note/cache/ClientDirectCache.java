@@ -1,10 +1,9 @@
 package com.sw.note.cache;
 
 import com.google.common.collect.Maps;
-import com.sw.note.model.ClientDirect;
+import com.sw.note.model.entity.ClientDirect;
 import com.sw.note.util.ObjectUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

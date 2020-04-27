@@ -1,7 +1,7 @@
 package com.sw.note.api;
 
 import com.sw.note.middleware.CtrlDeliverSocket;
-import com.sw.note.model.CtrlClient;
+import com.sw.note.model.entity.CtrlClient;
 import com.sw.note.service.VoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

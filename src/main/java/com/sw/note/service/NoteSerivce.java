@@ -1,9 +1,9 @@
 package com.sw.note.service;
 
-import com.sw.note.beans.BusinessException;
-import com.sw.note.beans.Enquiry;
+import com.sw.note.model.BusinessException;
+import com.sw.note.model.Enquiry;
 import com.sw.note.mapper.NoteMapper;
-import com.sw.note.model.Note;
+import com.sw.note.model.entity.Note;
 import com.sw.note.util.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

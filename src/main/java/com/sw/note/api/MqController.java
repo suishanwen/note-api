@@ -1,6 +1,6 @@
 package com.sw.note.api;
 
-import com.sw.note.beans.CtrlCode;
+import com.sw.note.model.CtrlCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

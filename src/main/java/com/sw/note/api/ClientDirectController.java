@@ -1,7 +1,7 @@
 package com.sw.note.api;
 
-import com.sw.note.model.ClientData;
-import com.sw.note.model.ClientDirect;
+import com.sw.note.model.entity.ClientData;
+import com.sw.note.model.entity.ClientDirect;
 import com.sw.note.service.ClientDirectService;
 import com.sw.note.util.DateUtil;
 import io.swagger.annotations.Api;

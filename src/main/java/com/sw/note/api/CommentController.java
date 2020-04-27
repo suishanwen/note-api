@@ -1,6 +1,6 @@
 package com.sw.note.api;
 
-import com.sw.note.model.Comment;
+import com.sw.note.model.entity.Comment;
 import com.sw.note.service.CommentService;
 import com.sw.note.util.NoteUtil;
 import io.swagger.annotations.*;

@@ -1,7 +1,7 @@
 package com.sw.note.cache;
 
 import com.google.common.collect.Lists;
-import com.sw.note.model.VoteProject;
+import com.sw.note.model.entity.VoteProject;
 
 import java.util.List;
 import java.util.stream.Collectors;

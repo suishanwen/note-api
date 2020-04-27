@@ -2,7 +2,7 @@ package com.sw.note.timer;
 
 import com.google.common.collect.Lists;
 import com.sw.note.cache.VoteProjectCache;
-import com.sw.note.model.VoteProject;
+import com.sw.note.model.entity.VoteProject;
 import com.sw.note.service.ClientDirectService;
 import com.sw.note.service.VoteProjectSerivce;
 import com.sw.note.util.ScheduledExecutorUtil;

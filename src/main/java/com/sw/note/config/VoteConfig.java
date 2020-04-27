@@ -1,6 +1,6 @@
 package com.sw.note.config;
 
-import com.sw.note.beans.VoteSystem;
+import com.sw.note.model.VoteSystem;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

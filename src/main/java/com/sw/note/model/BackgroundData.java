@@ -1,4 +1,4 @@
-package com.sw.note.beans;
+package com.sw.note.model;
 
 import java.util.List;
 
