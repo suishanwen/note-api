@@ -1,5 +1,8 @@
 package com.sw.note.util;
 
+/**
+ * @author sw
+ */
 public class IdGenerator {
 
     private static SnowflakeIdWorker snowflakeIdWorker;
@@ -8,7 +11,6 @@ public class IdGenerator {
         if (snowflakeIdWorker == null) {
             synchronized (IdGenerator.class) {
                 if (snowflakeIdWorker == null) {
-                    // 创建线程池
                     snowflakeIdWorker = new SnowflakeIdWorker(0, 0);
                 }
             }
