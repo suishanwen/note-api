@@ -1,7 +1,5 @@
 package com.sw.note.util;
 
-import java.util.concurrent.Executors;
-
 public class IdGenerator {
 
     private static SnowflakeIdWorker snowflakeIdWorker;
