@@ -27,8 +27,8 @@ public class LRULinkedHashMap<K, V> extends LinkedHashMap<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
+        lock.lock();
         try {
-            lock.lock();
             return super.containsKey(key);
         } finally {
             lock.unlock();
@@ -37,8 +37,8 @@ public class LRULinkedHashMap<K, V> extends LinkedHashMap<K, V> {
 
     @Override
     public V get(Object key) {
+        lock.lock();
         try {
-            lock.lock();
             return super.get(key);
         } finally {
             lock.unlock();
@@ -47,8 +47,8 @@ public class LRULinkedHashMap<K, V> extends LinkedHashMap<K, V> {
 
     @Override
     public V put(K key, V val) {
+        lock.lock();
         try {
-            lock.lock();
             return super.put(key, val);
         } finally {
             lock.unlock();
@@ -57,8 +57,8 @@ public class LRULinkedHashMap<K, V> extends LinkedHashMap<K, V> {
 
     @Override
     public int size() {
+        lock.lock();
         try {
-            lock.lock();
             return super.size();
         } finally {
             lock.unlock();
@@ -67,8 +67,8 @@ public class LRULinkedHashMap<K, V> extends LinkedHashMap<K, V> {
 
     @Override
     public void clear() {
+        lock.lock();
         try {
-            lock.lock();
             super.clear();
         } finally {
             lock.unlock();
@@ -76,8 +76,8 @@ public class LRULinkedHashMap<K, V> extends LinkedHashMap<K, V> {
     }
 
     public Collection<Map.Entry<K, V>> getAll() {
+        lock.lock();
         try {
-            lock.lock();
             return Lists.newArrayList(super.entrySet());
         } finally {
             lock.unlock();
