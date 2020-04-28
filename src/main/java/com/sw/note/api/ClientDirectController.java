@@ -90,7 +90,7 @@ public class ClientDirectController {
             @ApiImplicitParam(name = "ids", paramType = "query", required = true, dataType = "String"),
             @ApiImplicitParam(name = "all", paramType = "query", required = false, dataType = "int")
     })
-    public void selectByUserId(@RequestParam("ids") String ids, @RequestParam("all") int all, @RequestBody String direct) {
+    public void updateDirect(@RequestParam("ids") String ids, @RequestParam(value = "all", required = false) Integer all, @RequestBody String direct) {
         clientDirectService.updateDirect(ids, all, direct);
     }
 

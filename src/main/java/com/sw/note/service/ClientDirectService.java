@@ -78,7 +78,7 @@ public class ClientDirectService {
         if (clientDirectCache == null) {
             return "";
         }
-        if (!clientDirect.toString().equals(clientDirectCache.toString())) {
+        if (!clientDirect.equals(clientDirectCache)) {
             clientDirectCache.setProjectName(clientDirect.getProjectName());
             clientDirectCache.setWorkerId(clientDirect.getWorkerId());
             clientDirectCache.setSuccess(clientDirect.getSuccess());
@@ -111,7 +111,7 @@ public class ClientDirectService {
         return ClientDirectCache.selectByUserId(userId);
     }
 
-    public void updateDirect(String ids, int all, String direct) {
+    public void updateDirect(String ids, Integer all, String direct) {
         direct = direct.trim();
         String[] idArray = ids.split(",");
         if (all == 1) {

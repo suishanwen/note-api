@@ -3,6 +3,7 @@ package com.sw.note.model.entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.util.Date;
+import java.util.Objects;
 
 public class ClientDirect {
 
@@ -30,6 +31,22 @@ public class ClientDirect {
         this.id = id;
         this.userId = userId;
         this.sortNo = sortNo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClientDirect that = (ClientDirect) o;
+        return workerId.equals(that.workerId) &&
+                projectName.equals(that.projectName) &&
+                success.equals(that.success) &&
+                reward.equals(that.reward);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(workerId, projectName, success, reward);
     }
 
     @Override
