@@ -36,7 +36,7 @@ public class ClientDirectTimerSync {
             }
             running = false;
         };
-        ScheduledExecutorUtil.scheduleAtFixedRate(runnable, 0, 30);
+        ScheduledExecutorUtil.scheduleAtFixedRate(runnable, 0, 60);
     }
 }
 
