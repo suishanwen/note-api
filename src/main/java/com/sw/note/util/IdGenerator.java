@@ -5,7 +5,7 @@ package com.sw.note.util;
  */
 public class IdGenerator {
 
-    private static SnowflakeIdWorker snowflakeIdWorker;
+    private volatile static SnowflakeIdWorker snowflakeIdWorker;
 
     public static long next() {
         if (snowflakeIdWorker == null) {
