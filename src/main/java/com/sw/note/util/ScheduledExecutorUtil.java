@@ -9,7 +9,7 @@ import java.util.concurrent.*;
  * @author sw
  */
 public class ScheduledExecutorUtil {
-    private static ScheduledExecutorService pool;
+    private volatile static ScheduledExecutorService pool;
     private static List<Future> futures = Lists.newArrayList();
 
     private static ScheduledExecutorService getPool() {
