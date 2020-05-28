@@ -9,6 +9,5 @@ rabbitMq + websocket:
 
    app: https://github.com/suishanwen/flutter-sw
 
-   controller: https://github.com/suishanwen/controller.CS
-    
-   handler: https://github.com/suishanwen/robot-vote
+   client-distributed:https://github.com/suishanwen/robot
+ 
