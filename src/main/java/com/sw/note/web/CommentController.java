@@ -1,4 +1,4 @@
-package com.sw.note.api;
+package com.sw.note.web;
 
 import com.sw.note.model.entity.Comment;
 import com.sw.note.service.CommentService;

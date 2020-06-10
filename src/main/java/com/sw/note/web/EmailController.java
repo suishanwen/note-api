@@ -1,4 +1,4 @@
-package com.sw.note.api;
+package com.sw.note.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sw.note.util.MailUtils;

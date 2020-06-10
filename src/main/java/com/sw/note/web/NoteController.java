@@ -1,4 +1,4 @@
-package com.sw.note.api;
+package com.sw.note.web;
 
 import com.sw.note.model.BusinessException;
 import com.sw.note.model.Enquiry;

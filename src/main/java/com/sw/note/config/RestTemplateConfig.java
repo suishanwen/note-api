@@ -22,7 +22,7 @@ public class RestTemplateConfig {
     }
 
     @Bean
-    public RestTemplate getCline(ClientHttpRequestFactory factory) {
+    public RestTemplate getClient(ClientHttpRequestFactory factory) {
         RestTemplate restTemplate = new RestTemplate(factory);
         restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(Charset.forName("gbk")));
         return restTemplate;

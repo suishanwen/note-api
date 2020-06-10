@@ -29,6 +29,17 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual
+  redis:
+    sentinel:
+      master: mymaster
+      nodes: 47.114.32.129:26379,47.114.32.129:26380,47.114.32.129:26381
+      password: xxx
+    lettuce:
+      pool:
+        max-active: 100
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.sw.note.model # 扫描实例类所在包

@@ -1,4 +1,4 @@
-package com.sw.note.api;
+package com.sw.note.web;
 
 import com.sw.note.model.CtrlCode;
 import io.swagger.annotations.Api;

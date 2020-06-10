@@ -1,7 +1,6 @@
 package com.sw.note.service;
 
 import com.sw.note.model.BusinessException;
-import com.sw.note.model.VoteSystem;
 import com.sw.note.mapper.VoteMapper;
 import com.sw.note.middleware.CtrlDeliverSocket;
 import com.sw.note.model.entity.CtrlClient;
@@ -13,11 +12,9 @@ import java.util.List;
 @Service
 public class VoteService {
     private VoteMapper voteMapper;
-    private VoteSystem voteSystem;
 
-    public VoteService(VoteMapper voteMapper, VoteSystem voteSystem) {
+    public VoteService(VoteMapper voteMapper) {
         this.voteMapper = voteMapper;
-        this.voteSystem = voteSystem;
     }
 
 
