@@ -38,7 +38,7 @@ public class ClientDirectCache {
             if ("sortNo".equals(k)) {
                 clientDirect.setSortNo(Integer.parseInt(v.toString()));
             } else if ("updateTime".equals(k)) {
-                clientDirect.setUpdateTime(new Date(Integer.parseInt(v.toString())));
+                clientDirect.setUpdateTime(new Date(Long.parseLong(v.toString())));
 //                try {
 //                    clientDirect.setUpdateTime(sdf.parse(v.toString()));
 //                } catch (ParseException e) {
