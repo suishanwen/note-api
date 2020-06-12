@@ -65,12 +65,14 @@ public class ClientDirectCache {
     }
 
     public void report(ClientDirect clientDirect) {
+        long start = System.currentTimeMillis();
         redisTemplate.opsForHash().put(clientDirect.getId(), "projectName", clientDirect.getProjectName());
         redisTemplate.opsForHash().put(clientDirect.getId(), "workerId", clientDirect.getWorkerId());
         redisTemplate.opsForHash().put(clientDirect.getId(), "success", clientDirect.getSuccess());
         redisTemplate.opsForHash().put(clientDirect.getId(), "reward", clientDirect.getReward());
         redisTemplate.opsForHash().put(clientDirect.getId(), "updateTime", new Date());
         sync(clientDirect.getId(), false);
+        logger.info(clientDirect.getId() + "-上报耗时:" + (System.currentTimeMillis() - start));
     }
 
     public void setValAll(String field, String val) {
