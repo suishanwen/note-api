@@ -96,7 +96,7 @@ public class ClientDirectController {
 
     @ApiOperation(value = "检查版本", notes = "检查版本")
     @GetMapping(value = "checkVersion")
-    public int checkVersion() {
+    public long checkVersion() {
         return clientDirectService.checkVersion();
     }
 

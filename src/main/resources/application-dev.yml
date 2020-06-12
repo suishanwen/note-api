@@ -34,6 +34,7 @@ spring:
       master: mymaster
       nodes: 47.114.32.129:26379,47.114.32.129:26380,47.114.32.129:26381
       password: xxx
+    password: xxx
     lettuce:
       pool:
         max-active: 100

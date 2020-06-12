@@ -9,6 +9,7 @@ import com.sw.note.service.VoteProjectSerivce;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -20,11 +21,10 @@ import java.util.Map;
 @RequestMapping(path = "/voteProject")
 public class VoteProjectController {
 
+    @Autowired
     private VoteProjectSerivce voteProjectSerivce;
-
-    public VoteProjectController(VoteProjectSerivce voteProjectSerivce) {
-        this.voteProjectSerivce = voteProjectSerivce;
-    }
+    @Autowired
+    private ClientDirectCache clientDirectCache;
 
 
     @ApiOperation(value = "查询", notes = "查询")
@@ -62,7 +62,7 @@ public class VoteProjectController {
     @ApiOperation(value = "查询用户收入", notes = "查询用户收入")
     @PostMapping(value = "income")
     public double income(@RequestBody String user) {
-        BigDecimal bd = new BigDecimal(String.valueOf(ClientDirectCache.income(user)));
+        BigDecimal bd = new BigDecimal(String.valueOf(clientDirectCache.income(user)));
         return bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 }

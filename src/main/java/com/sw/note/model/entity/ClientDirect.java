@@ -16,7 +16,6 @@ public class ClientDirect {
     private String projectName;
     private String success;
     private String reward;
-    private Date reportTime;
     private Date updateTime;
     private String direct;
     private String version;
@@ -113,14 +112,6 @@ public class ClientDirect {
 
     public void setSuccess(String success) {
         this.success = success;
-    }
-
-    public Date getReportTime() {
-        return reportTime;
-    }
-
-    public void setReportTime(Date reportTime) {
-        this.reportTime = reportTime;
     }
 
     public String getDirect() {

@@ -34,6 +34,8 @@ public class ClientDirectTimerReset {
     private VmResetMapper vmResetMapper;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    ClientDirectCache clientDirectCache;
 
     @Value("${vm.host}")
     public String host;
@@ -78,7 +80,7 @@ public class ClientDirectTimerReset {
         long current = System.currentTimeMillis();
         long timeout = 45 * 60 * 1000;
         long resetInterval = 2 * 60 * 60 * 1000;
-        List<ClientDirect> clientDirectList = ClientDirectCache.selectByUserId("root");
+        List<ClientDirect> clientDirectList = clientDirectCache.selectByUserId("root");
         long nonCount = clientDirectList.stream()
                 .filter(clientDirect -> "无".equals(clientDirect.getProjectName()))
                 .count();

@@ -18,19 +18,21 @@ public class ClientDirectTimerSync {
     private ClientDirectService clientDirectService;
     @Autowired
     private ClientDirectMapper clientDirectMapper;
+    @Autowired
+    private ClientDirectCache clientDirectCache;
 
     private boolean running = false;
 
     public void run() {
         List<ClientDirect> clientDirectList = clientDirectMapper.selectAllCient();
-        ClientDirectCache.init(clientDirectList);
+        clientDirectCache.init(clientDirectList);
         Runnable runnable = () -> {
             if (running) {
                 return;
             }
             running = true;
             try {
-                clientDirectService.synchronize(ClientDirectCache.unSynchronized());
+                clientDirectService.synchronize(clientDirectCache.unSynchronized());
             } catch (Exception e) {
                 clientDirectService.bugReport("server-sync", e.getMessage());
             }
