@@ -31,16 +31,17 @@ public class ClientDirectCache {
         ObjectUtil objectUtil = new ObjectUtil();
         ClientDirect clientDirect = new ClientDirect();
         Map<Object, Object> map = redisTemplate.opsForHash().entries(id);
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", java.util.Locale.US);
+//        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", java.util.Locale.US);
         map.forEach((k, v) -> {
             if ("sortNo".equals(k)) {
                 clientDirect.setSortNo(Integer.parseInt(v.toString()));
             } else if ("updateTime".equals(k)) {
-                try {
-                    clientDirect.setUpdateTime(sdf.parse(v.toString()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                clientDirect.setUpdateTime(new Date(Integer.parseInt(v.toString())));
+//                try {
+//                    clientDirect.setUpdateTime(sdf.parse(v.toString()));
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
             } else {
                 objectUtil.setFieldValue(k.toString(), v.toString(), clientDirect);
             }
