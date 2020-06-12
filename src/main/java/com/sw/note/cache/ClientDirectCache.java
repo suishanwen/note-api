@@ -2,6 +2,7 @@ package com.sw.note.cache;
 
 import com.sw.note.model.entity.ClientDirect;
 import com.sw.note.util.ObjectUtil;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.hash.BeanUtilsHashMapper;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class ClientDirectCache {
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
@@ -97,21 +99,27 @@ public class ClientDirectCache {
     }
 
     public List<ClientDirect> selectByUserId(String userId) {
-        return Objects.requireNonNull(redisTemplate.opsForSet().members("ids"))
-                .stream().filter(id -> {
-                    if ("root".equals(userId)) {
-                        return true;
-                    }
-                    return userId.equals(redisTemplate.opsForHash().get(id.toString(), "userId"));
-                }).map(id ->
+        long start = System.currentTimeMillis();
+        List<ClientDirect> clientDirectList = Objects.requireNonNull(redisTemplate.opsForSet().members("ids"))
+                .stream()
+//                .filter(id -> {
+//                    if ("root".equals(userId)) {
+//                        return true;
+//                    }
+//                    return userId.equals(redisTemplate.opsForHash().get(id.toString(), "userId"));
+//                })
+                .map(id ->
                         get(id.toString())
-                ).sorted((t1, t2) -> {
+                )
+                .sorted((t1, t2) -> {
                     if (t1.getUserId().equals(t2.getUserId())) {
                         return t1.getSortNo() - t2.getSortNo();
                     } else {
                         return t1.getUserId().compareTo(t2.getUserId());
                     }
                 }).collect(Collectors.toList());
+        logger.info("从redis获取数据耗时:" + (System.currentTimeMillis() - start));
+        return clientDirectList;
     }
 
     public long versions() {
