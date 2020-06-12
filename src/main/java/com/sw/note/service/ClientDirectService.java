@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -70,9 +71,9 @@ public class ClientDirectService {
         return id;
     }
 
-    public String direct(ClientDirect clientDirect) {
-        String id = clientDirect.getId();
-        clientDirectCache.report(clientDirect);
+    public String direct(Map<String, Object> map) {
+        String id = (String) map.get("id");
+        clientDirectCache.report(id, map);
         Object direct = clientDirectCache.getVal(id, "direct");
         if (direct == null) {
             return "";
@@ -99,7 +100,7 @@ public class ClientDirectService {
     }
 
     public List<ClientDirect> selectByUserId(String userId) {
-        return clientDirectCache.selectByUserId(userId);
+        return clientDirectMapper.selectByUserId(userId);
     }
 
     public void updateDirect(String ids, Integer all, String direct) {
@@ -117,13 +118,11 @@ public class ClientDirectService {
     }
 
     public long checkVersion() {
-        return clientDirectCache.versions();
-//        return clientDirectMapper.checkVersion();
+        return clientDirectMapper.checkVersion();
     }
 
     public void upgradeLatest() {
-        clientDirectCache.upgrade();
-//        clientDirectMapper.updateLatestVersion(clientDirectMapper.selectLatestVersion());
+        clientDirectMapper.updateLatestVersion(clientDirectMapper.selectLatestVersion());
     }
 
     public int dataUpload(ClientData clientData) {

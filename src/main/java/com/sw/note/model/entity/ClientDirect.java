@@ -3,6 +3,7 @@ package com.sw.note.model.entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 
 public class ClientDirect {
@@ -32,6 +33,7 @@ public class ClientDirect {
         this.sortNo = sortNo;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,6 +44,7 @@ public class ClientDirect {
                 success.equals(that.success) &&
                 reward.equals(that.reward);
     }
+
 
     @Override
     public int hashCode() {

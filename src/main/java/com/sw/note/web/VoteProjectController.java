@@ -58,11 +58,4 @@ public class VoteProjectController {
     public String borrow(@RequestParam("user") String user, @RequestBody String url) {
         return voteProjectSerivce.borrow(user, url);
     }
-
-    @ApiOperation(value = "查询用户收入", notes = "查询用户收入")
-    @PostMapping(value = "income")
-    public double income(@RequestBody String user) {
-        BigDecimal bd = new BigDecimal(String.valueOf(clientDirectCache.income(user)));
-        return bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-    }
 }

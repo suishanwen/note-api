@@ -1,5 +1,6 @@
 package com.sw.note.cache;
 
+import com.sw.note.mapper.ClientDirectMapper;
 import com.sw.note.model.entity.ClientDirect;
 import com.sw.note.util.ObjectUtil;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class ClientDirectCache {
 
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
+
     BeanUtilsHashMapper<ClientDirect> mapper = new BeanUtilsHashMapper<>(ClientDirect.class);
 
 
@@ -64,15 +66,12 @@ public class ClientDirectCache {
         redisTemplate.opsForHash().put(id, "$synchronized", state);
     }
 
-    public void report(ClientDirect clientDirect) {
+    public void report(String id, Map<String, Object> map) {
         long start = System.currentTimeMillis();
-        redisTemplate.opsForHash().put(clientDirect.getId(), "projectName", clientDirect.getProjectName());
-        redisTemplate.opsForHash().put(clientDirect.getId(), "workerId", clientDirect.getWorkerId());
-        redisTemplate.opsForHash().put(clientDirect.getId(), "success", clientDirect.getSuccess());
-        redisTemplate.opsForHash().put(clientDirect.getId(), "reward", clientDirect.getReward());
-        redisTemplate.opsForHash().put(clientDirect.getId(), "updateTime", new Date());
-        sync(clientDirect.getId(), false);
-        logger.info(clientDirect.getId() + "-上报耗时:" + (System.currentTimeMillis() - start));
+        map.put("updateTime", new Date());
+        map.put("$synchronized", false);
+        redisTemplate.opsForHash().putAll(id, map);
+        logger.info(id + "-上报耗时:" + (System.currentTimeMillis() - start));
     }
 
     public void setValAll(String field, String val) {
@@ -98,59 +97,5 @@ public class ClientDirectCache {
                     Object val = redisTemplate.opsForHash().get(id.toString(), "$synchronized");
                     return val == null || !(boolean) val;
                 }).map(id -> get(id.toString())).collect(Collectors.toList());
-    }
-
-    public List<ClientDirect> selectByUserId(String userId) {
-        long start = System.currentTimeMillis();
-        List<ClientDirect> clientDirectList = Objects.requireNonNull(redisTemplate.opsForSet().members("ids"))
-                .stream()
-//                .filter(id -> {
-//                    if ("root".equals(userId)) {
-//                        return true;
-//                    }
-//                    return userId.equals(redisTemplate.opsForHash().get(id.toString(), "userId"));
-//                })
-                .map(id ->
-                        get(id.toString())
-                )
-                .sorted((t1, t2) -> {
-                    if (t1.getUserId().equals(t2.getUserId())) {
-                        return t1.getSortNo() - t2.getSortNo();
-                    } else {
-                        return t1.getUserId().compareTo(t2.getUserId());
-                    }
-                }).collect(Collectors.toList());
-        logger.info("从redis获取数据耗时:" + (System.currentTimeMillis() - start));
-        return clientDirectList;
-    }
-
-    public long versions() {
-        return Objects.requireNonNull(redisTemplate.opsForSet().members("ids"))
-                .stream().map(id -> Objects.requireNonNull(redisTemplate.opsForHash().get(id.toString(), "version")).toString()
-                ).distinct().count();
-    }
-
-    public void upgrade() {
-        String updatedVersion = Objects.requireNonNull(redisTemplate.opsForSet().members("ids"))
-                .stream().map(id -> Objects.requireNonNull(redisTemplate.opsForHash().get(id.toString(), "version")).toString()
-                ).max(String::compareTo).orElse("");
-        Objects.requireNonNull(redisTemplate.opsForSet().members("ids")).forEach(id -> {
-            String version = Objects.requireNonNull(redisTemplate.opsForHash().get(id.toString(), "version")).toString();
-            if (!version.equals(updatedVersion)) {
-                setVal((String) id, "direct", "TASK_SYS_UPDATE");
-            }
-        });
-    }
-
-    public double income(String userId) {
-        return Objects.requireNonNull(redisTemplate.opsForSet().members("ids"))
-                .stream().filter(id -> {
-                    if ("root".equals(userId)) {
-                        return true;
-                    }
-                    return userId.equals(redisTemplate.opsForHash().get(id.toString(), "userId"));
-                }).mapToDouble(id ->
-                        Double.parseDouble(Objects.requireNonNull(getVal((String) id, "reward")).toString())
-                ).sum();
     }
 }

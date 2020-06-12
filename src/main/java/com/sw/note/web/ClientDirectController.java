@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Api(value = "指令", description = "指令", tags = "7")
@@ -42,8 +43,8 @@ public class ClientDirectController {
 
     @ApiOperation(value = "上报并获取指令", notes = "上报并获取指令")
     @PostMapping(value = "report")
-    public String direct(@RequestBody ClientDirect clientDirect) {
-        return clientDirectService.direct(clientDirect);
+    public String direct(@RequestBody Map<String,Object> map) {
+        return clientDirectService.direct(map);
     }
 
     @ApiOperation(value = "确认指令", notes = "确认指令")

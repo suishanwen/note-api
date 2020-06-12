@@ -80,7 +80,7 @@ public class ClientDirectTimerReset {
         long current = System.currentTimeMillis();
         long timeout = 45 * 60 * 1000;
         long resetInterval = 2 * 60 * 60 * 1000;
-        List<ClientDirect> clientDirectList = clientDirectCache.selectByUserId("root");
+        List<ClientDirect> clientDirectList = clientDirectService.selectByUserId("root");
         long nonCount = clientDirectList.stream()
                 .filter(clientDirect -> "无".equals(clientDirect.getProjectName()))
                 .count();
